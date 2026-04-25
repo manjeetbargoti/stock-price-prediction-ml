@@ -1,0 +1,252 @@
+2026-04-25 12:03:15 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-04-25 12:03:35 | INFO     | src.data_collection | Fetching HDFCBANK.NS from Yahoo Finance (2016-01-01 → 2023-12-31)
+2026-04-25 12:03:39 | INFO     | src.data_collection | Validated HDFCBANK: 1975 rows, 2016-01-01 → 2023-12-29
+2026-04-25 12:03:39 | INFO     | src.data_collection | Cached 1975 rows → HDFCBANK_2016-01-01_2023-12-31.parquet
+2026-04-25 12:03:39 | WARNING  | src.preprocessing | Winsorised 1 outliers in column 'Close'.
+2026-04-25 12:03:39 | WARNING  | src.preprocessing | Winsorised 13 outliers in column 'Volume'.
+2026-04-25 12:03:39 | INFO     | src.preprocessing | Cleaned DataFrame: 1975 rows, NaN remaining: 1
+2026-04-25 12:03:39 | INFO     | src.feature_engineering | Features built: 44 columns, 1926 rows (dropped 49 NaN rows).
+2026-04-25 12:03:39 | INFO     | src.preprocessing | Split → train=1348 [2016-03-14→2021-08-30]  val=289 [2021-08-31→2022-10-28]  test=289 [2022-10-31→2023-12-29]
+2026-04-25 12:03:39 | INFO     | src.preprocessing | Scaler fitted on 1348 training rows.
+2026-04-25 12:03:41 | INFO     | src.models.base_model | [RandomForest] MAE=0.0026  RMSE=0.0046  MAPE=0.64%  R²=0.9996
+2026-04-25 12:03:41 | INFO     | src.models.rf_model | Random Forest trained.  OOB R²=0.9984  Train R²=0.9996
+2026-04-25 12:03:41 | INFO     | src.evaluation | [Random Forest] MAE=39.3109 RMSE=45.4211 MAPE=4.94% R²=-1.5007
+2026-04-25 12:04:26 | INFO     | src.data_collection | Fetching RELIANCE.NS from Yahoo Finance (2016-01-01 → 2023-12-31)
+2026-04-25 12:04:27 | INFO     | src.data_collection | Validated RELIANCE: 1975 rows, 2016-01-01 → 2023-12-29
+2026-04-25 12:04:27 | INFO     | src.data_collection | Cached 1975 rows → RELIANCE_2016-01-01_2023-12-31.parquet
+2026-04-25 12:04:27 | WARNING  | src.preprocessing | Winsorised 2 outliers in column 'Close'.
+2026-04-25 12:04:27 | WARNING  | src.preprocessing | Winsorised 16 outliers in column 'Volume'.
+2026-04-25 12:04:27 | INFO     | src.preprocessing | Cleaned DataFrame: 1975 rows, NaN remaining: 1
+2026-04-25 12:04:27 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:04:27 | INFO     | src.feature_engineering | Features built: 49 columns, 1926 rows (dropped 49 NaN rows).
+2026-04-25 12:04:27 | INFO     | src.preprocessing | Split → train=1348 [2016-03-14→2021-08-30]  val=289 [2021-08-31→2022-10-28]  test=289 [2022-10-31→2023-12-29]
+2026-04-25 12:04:27 | INFO     | src.preprocessing | Scaler fitted on 1348 training rows.
+2026-04-25 12:07:58 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-04-25 12:08:33 | INFO     | src.data_collection | Fetching RELIANCE.NS from Yahoo Finance (2021-01-01 → 2025-12-31)
+2026-04-25 12:08:34 | INFO     | src.data_collection | Validated RELIANCE: 1235 rows, 2021-01-01 → 2025-12-30
+2026-04-25 12:08:34 | INFO     | src.data_collection | Cached 1235 rows → RELIANCE_2021-01-01_2025-12-31.parquet
+2026-04-25 12:08:34 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:08:34 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-04-25 12:08:34 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:08:34 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 49 NaN rows).
+2026-04-25 12:08:34 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-04-25 12:08:34 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-04-25 12:11:33 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-04-25 12:11:44 | INFO     | src.data_collection | Loading cached data: RELIANCE_2016-01-01_2023-12-31.parquet
+2026-04-25 12:11:44 | INFO     | src.data_collection | Validated RELIANCE: 1975 rows, 2016-01-01 → 2023-12-29
+2026-04-25 12:11:44 | WARNING  | src.preprocessing | Winsorised 2 outliers in column 'Close'.
+2026-04-25 12:11:44 | WARNING  | src.preprocessing | Winsorised 16 outliers in column 'Volume'.
+2026-04-25 12:11:44 | INFO     | src.preprocessing | Cleaned DataFrame: 1975 rows, NaN remaining: 1
+2026-04-25 12:11:44 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:11:44 | INFO     | src.feature_engineering | Features built: 49 columns, 1926 rows (dropped 49 NaN rows).
+2026-04-25 12:11:44 | INFO     | src.preprocessing | Split → train=1348 [2016-03-14→2021-08-30]  val=289 [2021-08-31→2022-10-28]  test=289 [2022-10-31→2023-12-29]
+2026-04-25 12:11:44 | INFO     | src.preprocessing | Scaler fitted on 1348 training rows.
+2026-04-25 12:11:45 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0031  RMSE=0.0046  MAPE=2.97%  R²=0.9997
+2026-04-25 12:11:45 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9997
+2026-04-25 12:11:45 | INFO     | src.evaluation | [Linear Regression] MAE=4.5023 RMSE=5.7925 MAPE=0.39% R²=0.9933
+2026-04-25 12:13:35 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-04-25 12:13:44 | INFO     | src.data_collection | Loading cached data: RELIANCE_2016-01-01_2023-12-31.parquet
+2026-04-25 12:13:44 | INFO     | src.data_collection | Validated RELIANCE: 1975 rows, 2016-01-01 → 2023-12-29
+2026-04-25 12:13:44 | WARNING  | src.preprocessing | Winsorised 2 outliers in column 'Close'.
+2026-04-25 12:13:44 | WARNING  | src.preprocessing | Winsorised 16 outliers in column 'Volume'.
+2026-04-25 12:13:44 | INFO     | src.preprocessing | Cleaned DataFrame: 1975 rows, NaN remaining: 1
+2026-04-25 12:13:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:13:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1926 rows (dropped 49 NaN rows).
+2026-04-25 12:13:45 | INFO     | src.preprocessing | Split → train=1348 [2016-03-14→2021-08-30]  val=289 [2021-08-31→2022-10-28]  test=289 [2022-10-31→2023-12-29]
+2026-04-25 12:13:45 | INFO     | src.preprocessing | Scaler fitted on 1348 training rows.
+2026-04-25 12:13:45 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0031  RMSE=0.0046  MAPE=2.97%  R²=0.9997
+2026-04-25 12:13:45 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9997
+2026-04-25 12:13:45 | INFO     | src.evaluation | [Linear Regression] MAE=4.5023 RMSE=5.7925 MAPE=0.39% R²=0.9933
+2026-04-25 12:17:51 | INFO     | src.evaluation | [Linear Regression] Backtest → Return=-8.0%  B&H=16.3%  Sharpe=-0.67  MaxDD=-15.1%
+2026-04-25 12:18:06 | INFO     | src.data_collection | Loading cached data: RELIANCE_2016-01-01_2023-12-31.parquet
+2026-04-25 12:18:06 | INFO     | src.data_collection | Validated RELIANCE: 1975 rows, 2016-01-01 → 2023-12-29
+2026-04-25 12:18:06 | WARNING  | src.preprocessing | Winsorised 2 outliers in column 'Close'.
+2026-04-25 12:18:06 | WARNING  | src.preprocessing | Winsorised 16 outliers in column 'Volume'.
+2026-04-25 12:18:06 | INFO     | src.preprocessing | Cleaned DataFrame: 1975 rows, NaN remaining: 1
+2026-04-25 12:18:06 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:18:06 | INFO     | src.feature_engineering | Features built: 49 columns, 1926 rows (dropped 49 NaN rows).
+2026-04-25 12:18:06 | INFO     | src.preprocessing | Split → train=1348 [2016-03-14→2021-08-30]  val=289 [2021-08-31→2022-10-28]  test=289 [2022-10-31→2023-12-29]
+2026-04-25 12:18:06 | INFO     | src.preprocessing | Scaler fitted on 1348 training rows.
+2026-04-25 12:18:06 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0031  RMSE=0.0046  MAPE=2.97%  R²=0.9997
+2026-04-25 12:18:06 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9997
+2026-04-25 12:18:06 | INFO     | src.evaluation | [Linear Regression] MAE=4.5023 RMSE=5.7925 MAPE=0.39% R²=0.9933
+2026-04-25 12:18:07 | INFO     | src.models.base_model | [RandomForest] MAE=0.0024  RMSE=0.0040  MAPE=1.04%  R²=0.9998
+2026-04-25 12:18:07 | INFO     | src.models.rf_model | Random Forest trained.  OOB R²=0.9992  Train R²=0.9998
+2026-04-25 12:18:07 | INFO     | src.evaluation | [Random Forest] MAE=132.1718 RMSE=148.2317 MAPE=11.13% R²=-3.4053
+2026-04-25 12:19:52 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-04-25 12:20:01 | INFO     | src.data_collection | Loading cached data: RELIANCE_2016-01-01_2023-12-31.parquet
+2026-04-25 12:20:01 | INFO     | src.data_collection | Validated RELIANCE: 1975 rows, 2016-01-01 → 2023-12-29
+2026-04-25 12:20:01 | WARNING  | src.preprocessing | Winsorised 2 outliers in column 'Close'.
+2026-04-25 12:20:01 | WARNING  | src.preprocessing | Winsorised 16 outliers in column 'Volume'.
+2026-04-25 12:20:01 | INFO     | src.preprocessing | Cleaned DataFrame: 1975 rows, NaN remaining: 1
+2026-04-25 12:20:01 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:20:01 | INFO     | src.feature_engineering | Features built: 49 columns, 1926 rows (dropped 49 NaN rows).
+2026-04-25 12:20:01 | INFO     | src.preprocessing | Split → train=1348 [2016-03-14→2021-08-30]  val=289 [2021-08-31→2022-10-28]  test=289 [2022-10-31→2023-12-29]
+2026-04-25 12:20:01 | INFO     | src.preprocessing | Scaler fitted on 1348 training rows.
+2026-04-25 12:20:03 | INFO     | src.models.base_model | [XGBoost] MAE=0.0017  RMSE=0.0025  MAPE=1.52%  R²=0.9999
+2026-04-25 12:20:03 | INFO     | src.models.xgb_model | XGBoost trained.  Best iter=567  Train R²=0.9999
+2026-04-25 12:20:03 | INFO     | src.evaluation | [XGBoost] MAE=137.6658 RMSE=153.6150 MAPE=11.61% R²=-3.7311
+2026-04-25 12:21:45 | INFO     | src.data_collection | Fetching RELIANCE.NS from Yahoo Finance (2021-01-01 → 2026-04-25)
+2026-04-25 12:21:45 | INFO     | src.data_collection | Validated RELIANCE: 1312 rows, 2021-01-01 → 2026-04-24
+2026-04-25 12:21:45 | INFO     | src.data_collection | Cached 1312 rows → RELIANCE_2021-01-01_2026-04-25.parquet
+2026-04-25 12:21:45 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:21:45 | INFO     | src.preprocessing | Cleaned DataFrame: 1312 rows, NaN remaining: 1
+2026-04-25 12:21:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:21:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1263 rows (dropped 49 NaN rows).
+2026-04-25 12:21:45 | INFO     | src.preprocessing | Split → train=884 [2021-03-15→2024-10-11]  val=189 [2024-10-14→2025-07-16]  test=190 [2025-07-17→2026-04-24]
+2026-04-25 12:21:45 | INFO     | src.preprocessing | Scaler fitted on 884 training rows.
+2026-04-25 12:21:46 | INFO     | src.models.base_model | [XGBoost] MAE=0.0027  RMSE=0.0042  MAPE=0.79%  R²=0.9996
+2026-04-25 12:21:46 | INFO     | src.models.xgb_model | XGBoost trained.  Best iter=155  Train R²=0.9996
+2026-04-25 12:21:46 | INFO     | src.evaluation | [XGBoost] MAE=10.7722 RMSE=14.4726 MAPE=0.73% R²=0.9629
+2026-04-25 12:23:18 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-04-25 12:23:39 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2025-12-31.parquet
+2026-04-25 12:23:39 | INFO     | src.data_collection | Validated RELIANCE: 1235 rows, 2021-01-01 → 2025-12-30
+2026-04-25 12:23:39 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:23:39 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-04-25 12:23:39 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:23:39 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 49 NaN rows).
+2026-04-25 12:23:39 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-04-25 12:23:39 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-04-25 12:23:40 | INFO     | src.models.base_model | [XGBoost] MAE=0.0147  RMSE=0.0211  MAPE=4.38%  R²=0.9882
+2026-04-25 12:23:40 | INFO     | src.models.xgb_model | XGBoost trained.  Best iter=48  Train R²=0.9882
+2026-04-25 12:23:40 | INFO     | src.evaluation | [XGBoost] MAE=21.9680 RMSE=27.2913 MAPE=1.47% R²=0.8541
+2026-04-25 12:25:16 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2025-12-31.parquet
+2026-04-25 12:25:16 | INFO     | src.data_collection | Validated RELIANCE: 1235 rows, 2021-01-01 → 2025-12-30
+2026-04-25 12:25:16 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:25:16 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-04-25 12:25:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:25:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 49 NaN rows).
+2026-04-25 12:25:16 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-04-25 12:25:16 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-04-25 12:25:16 | INFO     | src.models.base_model | [XGBoost] MAE=0.0147  RMSE=0.0211  MAPE=4.38%  R²=0.9882
+2026-04-25 12:25:16 | INFO     | src.models.xgb_model | XGBoost trained.  Best iter=48  Train R²=0.9882
+2026-04-25 12:25:16 | INFO     | src.evaluation | [XGBoost] MAE=21.9680 RMSE=27.2913 MAPE=1.47% R²=0.8541
+2026-04-25 12:25:16 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0036  RMSE=0.0048  MAPE=0.96%  R²=0.9994
+2026-04-25 12:25:16 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9994
+2026-04-25 12:25:16 | INFO     | src.evaluation | [Linear Regression] MAE=2.3682 RMSE=3.2853 MAPE=0.16% R²=0.9979
+2026-04-25 12:25:35 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-04-25.parquet
+2026-04-25 12:25:35 | INFO     | src.data_collection | Validated RELIANCE: 1312 rows, 2021-01-01 → 2026-04-24
+2026-04-25 12:25:35 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:25:35 | INFO     | src.preprocessing | Cleaned DataFrame: 1312 rows, NaN remaining: 1
+2026-04-25 12:25:35 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:25:35 | INFO     | src.feature_engineering | Features built: 49 columns, 1263 rows (dropped 49 NaN rows).
+2026-04-25 12:25:35 | INFO     | src.preprocessing | Split → train=884 [2021-03-15→2024-10-11]  val=189 [2024-10-14→2025-07-16]  test=190 [2025-07-17→2026-04-24]
+2026-04-25 12:25:35 | INFO     | src.preprocessing | Scaler fitted on 884 training rows.
+2026-04-25 12:25:35 | INFO     | src.models.base_model | [XGBoost] MAE=0.0027  RMSE=0.0042  MAPE=0.79%  R²=0.9996
+2026-04-25 12:25:35 | INFO     | src.models.xgb_model | XGBoost trained.  Best iter=155  Train R²=0.9996
+2026-04-25 12:25:35 | INFO     | src.evaluation | [XGBoost] MAE=10.7722 RMSE=14.4726 MAPE=0.73% R²=0.9629
+2026-04-25 12:25:35 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0035  RMSE=0.0047  MAPE=0.92%  R²=0.9995
+2026-04-25 12:25:35 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9995
+2026-04-25 12:25:35 | INFO     | src.evaluation | [Linear Regression] MAE=3.0750 RMSE=4.2122 MAPE=0.21% R²=0.9969
+2026-04-25 12:26:34 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-04-25.parquet
+2026-04-25 12:26:34 | INFO     | src.data_collection | Validated RELIANCE: 1312 rows, 2021-01-01 → 2026-04-24
+2026-04-25 12:26:34 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:26:34 | INFO     | src.preprocessing | Cleaned DataFrame: 1312 rows, NaN remaining: 1
+2026-04-25 12:26:34 | INFO     | src.feature_engineering | Features built: 44 columns, 1263 rows (dropped 49 NaN rows).
+2026-04-25 12:26:34 | INFO     | src.preprocessing | Split → train=884 [2021-03-15→2024-10-11]  val=189 [2024-10-14→2025-07-16]  test=190 [2025-07-17→2026-04-24]
+2026-04-25 12:26:34 | INFO     | src.preprocessing | Scaler fitted on 884 training rows.
+2026-04-25 12:26:34 | INFO     | src.models.base_model | [XGBoost] MAE=0.0029  RMSE=0.0046  MAPE=0.85%  R²=0.9995
+2026-04-25 12:26:34 | INFO     | src.models.xgb_model | XGBoost trained.  Best iter=135  Train R²=0.9995
+2026-04-25 12:26:34 | INFO     | src.evaluation | [XGBoost] MAE=9.6592 RMSE=12.7780 MAPE=0.65% R²=0.9711
+2026-04-25 12:26:34 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0035  RMSE=0.0047  MAPE=0.92%  R²=0.9995
+2026-04-25 12:26:34 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9995
+2026-04-25 12:26:34 | INFO     | src.evaluation | [Linear Regression] MAE=3.0750 RMSE=4.2122 MAPE=0.21% R²=0.9969
+2026-04-25 12:27:27 | INFO     | src.evaluation | [Linear Regression] Backtest → Return=-17.3%  B&H=-3.5%  Sharpe=-2.54  MaxDD=-23.3%
+2026-04-25 12:27:46 | INFO     | src.evaluation | [XGBoost] Backtest → Return=-14.9%  B&H=-3.5%  Sharpe=-2.51  MaxDD=-18.8%
+2026-04-25 12:33:01 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-04-25 12:33:14 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2025-12-31.parquet
+2026-04-25 12:33:14 | INFO     | src.data_collection | Validated RELIANCE: 1235 rows, 2021-01-01 → 2025-12-30
+2026-04-25 12:33:14 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:33:14 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-04-25 12:33:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:33:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 49 NaN rows).
+2026-04-25 12:33:15 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-04-25 12:33:15 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-04-25 12:33:16 | INFO     | src.models.base_model | [RandomForest] MAE=0.0043  RMSE=0.0063  MAPE=1.15%  R²=0.9989
+2026-04-25 12:33:16 | INFO     | src.models.rf_model | Random Forest trained.  OOB R²=0.9954  Train R²=0.9989
+2026-04-25 12:33:16 | INFO     | src.evaluation | [Random Forest] MAE=21.2691 RMSE=24.7413 MAPE=1.50% R²=0.8801
+2026-04-25 12:33:16 | INFO     | src.models.base_model | [XGBoost] MAE=0.0147  RMSE=0.0211  MAPE=4.38%  R²=0.9882
+2026-04-25 12:33:16 | INFO     | src.models.xgb_model | XGBoost trained.  Best iter=48  Train R²=0.9882
+2026-04-25 12:33:16 | INFO     | src.evaluation | [XGBoost] MAE=21.9680 RMSE=27.2913 MAPE=1.47% R²=0.8541
+2026-04-25 12:33:22 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-04-25 12:34:07 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=8  Final val_loss=0.077891
+2026-04-25 12:34:08 | INFO     | src.evaluation | [LSTM] MAE=282.7899 RMSE=304.9625 MAPE=19.18% R²=-17.2198
+2026-04-25 12:34:08 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0036  RMSE=0.0048  MAPE=0.96%  R²=0.9994
+2026-04-25 12:34:08 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9994
+2026-04-25 12:34:08 | INFO     | src.evaluation | [Linear Regression] MAE=2.3682 RMSE=3.2853 MAPE=0.16% R²=0.9979
+2026-04-25 12:34:08 | INFO     | src.models.svr_model | SVR fitting on 770 samples…
+2026-04-25 12:34:08 | INFO     | src.models.base_model | [SVR] MAE=0.0333  RMSE=0.0447  MAPE=10.52%  R²=0.9468
+2026-04-25 12:34:08 | INFO     | src.models.svr_model | SVR trained.  Train R²=0.9468
+2026-04-25 12:34:08 | INFO     | src.evaluation | [SVR] MAE=56.1731 RMSE=73.0738 MAPE=3.78% R²=-0.0461
+2026-04-25 12:35:58 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2025-12-31.parquet
+2026-04-25 12:35:58 | INFO     | src.data_collection | Validated RELIANCE: 1235 rows, 2021-01-01 → 2025-12-30
+2026-04-25 12:35:58 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:35:58 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-04-25 12:35:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 49 NaN rows).
+2026-04-25 12:35:58 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-04-25 12:35:58 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-04-25 12:35:59 | INFO     | src.models.base_model | [RandomForest] MAE=0.0042  RMSE=0.0062  MAPE=1.12%  R²=0.9990
+2026-04-25 12:35:59 | INFO     | src.models.rf_model | Random Forest trained.  OOB R²=0.9955  Train R²=0.9990
+2026-04-25 12:35:59 | INFO     | src.evaluation | [Random Forest] MAE=19.9650 RMSE=23.6019 MAPE=1.41% R²=0.8909
+2026-04-25 12:36:00 | INFO     | src.models.base_model | [XGBoost] MAE=0.0190  RMSE=0.0269  MAPE=5.60%  R²=0.9808
+2026-04-25 12:36:00 | INFO     | src.models.xgb_model | XGBoost trained.  Best iter=42  Train R²=0.9808
+2026-04-25 12:36:00 | INFO     | src.evaluation | [XGBoost] MAE=26.7170 RMSE=34.3369 MAPE=1.78% R²=0.7690
+2026-04-25 12:36:00 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-04-25 12:36:59 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=15  Final val_loss=0.057901
+2026-04-25 12:37:01 | INFO     | src.evaluation | [LSTM] MAE=211.2946 RMSE=217.6587 MAPE=14.45% R²=-8.2811
+2026-04-25 12:37:01 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0036  RMSE=0.0048  MAPE=0.96%  R²=0.9994
+2026-04-25 12:37:01 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9994
+2026-04-25 12:37:01 | INFO     | src.evaluation | [Linear Regression] MAE=2.3682 RMSE=3.2853 MAPE=0.16% R²=0.9979
+2026-04-25 12:37:01 | INFO     | src.models.svr_model | SVR fitting on 770 samples…
+2026-04-25 12:37:01 | INFO     | src.models.base_model | [SVR] MAE=0.0333  RMSE=0.0447  MAPE=10.52%  R²=0.9468
+2026-04-25 12:37:01 | INFO     | src.models.svr_model | SVR trained.  Train R²=0.9468
+2026-04-25 12:37:01 | INFO     | src.evaluation | [SVR] MAE=56.1731 RMSE=73.0738 MAPE=3.78% R²=-0.0461
+2026-04-25 12:41:41 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-04-25 12:41:50 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2025-12-31.parquet
+2026-04-25 12:41:50 | INFO     | src.data_collection | Validated RELIANCE: 1235 rows, 2021-01-01 → 2025-12-30
+2026-04-25 12:41:50 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:41:50 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-04-25 12:41:50 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 49 NaN rows).
+2026-04-25 12:41:50 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-04-25 12:41:50 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-04-25 12:41:54 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-04-25 12:42:47 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=15  Final val_loss=0.060904
+2026-04-25 12:42:48 | INFO     | src.evaluation | [LSTM] MAE=194.5963 RMSE=212.6219 MAPE=13.18% R²=-7.8566
+2026-04-25 12:43:53 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-04-25.parquet
+2026-04-25 12:43:53 | INFO     | src.data_collection | Validated RELIANCE: 1312 rows, 2021-01-01 → 2026-04-24
+2026-04-25 12:43:53 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:43:53 | INFO     | src.preprocessing | Cleaned DataFrame: 1312 rows, NaN remaining: 1
+2026-04-25 12:43:53 | INFO     | src.feature_engineering | Features built: 44 columns, 1263 rows (dropped 49 NaN rows).
+2026-04-25 12:43:53 | INFO     | src.preprocessing | Split → train=884 [2021-03-15→2024-10-11]  val=189 [2024-10-14→2025-07-16]  test=190 [2025-07-17→2026-04-24]
+2026-04-25 12:43:53 | INFO     | src.preprocessing | Scaler fitted on 884 training rows.
+2026-04-25 12:43:53 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-04-25 12:44:51 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=13  Final val_loss=0.030666
+2026-04-25 12:44:52 | INFO     | src.evaluation | [LSTM] MAE=184.6708 RMSE=203.2795 MAPE=12.46% R²=-6.3136
+2026-04-25 12:45:52 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-04-25.parquet
+2026-04-25 12:45:52 | INFO     | src.data_collection | Validated RELIANCE: 1312 rows, 2021-01-01 → 2026-04-24
+2026-04-25 12:45:52 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:45:52 | INFO     | src.preprocessing | Cleaned DataFrame: 1312 rows, NaN remaining: 1
+2026-04-25 12:45:52 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:45:52 | INFO     | src.feature_engineering | Features built: 49 columns, 1263 rows (dropped 49 NaN rows).
+2026-04-25 12:45:52 | INFO     | src.preprocessing | Split → train=884 [2021-03-15→2024-10-11]  val=189 [2024-10-14→2025-07-16]  test=190 [2025-07-17→2026-04-24]
+2026-04-25 12:45:52 | INFO     | src.preprocessing | Scaler fitted on 884 training rows.
+2026-04-25 12:45:53 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-04-25 12:47:12 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=24  Final val_loss=0.043529
+2026-04-25 12:47:13 | INFO     | src.evaluation | [LSTM] MAE=92.0027 RMSE=109.0406 MAPE=6.17% R²=-1.1044
+2026-04-25 12:47:31 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-04-25.parquet
+2026-04-25 12:47:31 | INFO     | src.data_collection | Validated RELIANCE: 1312 rows, 2021-01-01 → 2026-04-24
+2026-04-25 12:47:31 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-04-25 12:47:31 | INFO     | src.preprocessing | Cleaned DataFrame: 1312 rows, NaN remaining: 1
+2026-04-25 12:47:32 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 12:47:32 | INFO     | src.feature_engineering | Features built: 49 columns, 1263 rows (dropped 49 NaN rows).
+2026-04-25 12:47:32 | INFO     | src.preprocessing | Split → train=884 [2021-03-15→2024-10-11]  val=189 [2024-10-14→2025-07-16]  test=190 [2025-07-17→2026-04-24]
+2026-04-25 12:47:32 | INFO     | src.preprocessing | Scaler fitted on 884 training rows.
+2026-04-25 12:47:32 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-04-25 12:48:35 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=13  Final val_loss=0.021203
+2026-04-25 12:48:37 | INFO     | src.evaluation | [LSTM] MAE=133.9249 RMSE=157.0492 MAPE=8.96% R²=-3.3653
