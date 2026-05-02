@@ -250,3 +250,865 @@ None
 None
 2026-04-25 12:48:35 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=13  Final val_loss=0.021203
 2026-04-25 12:48:37 | INFO     | src.evaluation | [LSTM] MAE=133.9249 RMSE=157.0492 MAPE=8.96% R²=-3.3653
+2026-04-25 17:45:17 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-04-25 17:45:33 | INFO     | src.data_collection | Fetching HDFCBANK.NS from Yahoo Finance (2021-01-01 → 2025-12-31)
+2026-04-25 17:45:34 | INFO     | src.data_collection | Validated HDFCBANK: 1235 rows, 2021-01-01 → 2025-12-30
+2026-04-25 17:45:34 | INFO     | src.data_collection | Cached 1235 rows → HDFCBANK_2021-01-01_2025-12-31.parquet
+2026-04-25 17:45:34 | WARNING  | src.preprocessing | Winsorised 9 outliers in column 'Volume'.
+2026-04-25 17:45:34 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-04-25 17:45:34 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 17:45:34 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 49 NaN rows).
+2026-04-25 17:45:34 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-04-25 17:45:34 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-04-25 17:45:36 | INFO     | src.models.base_model | [RandomForest] MAE=0.0066  RMSE=0.0102  MAPE=2.37%  R²=0.9974
+2026-04-25 17:45:36 | INFO     | src.models.rf_model | Random Forest trained.  OOB R²=0.9894  Train R²=0.9974
+2026-04-25 17:45:36 | INFO     | src.evaluation | [Random Forest] MAE=159.1338 RMSE=159.8223 MAPE=16.11% R²=-88.6264
+2026-04-25 17:46:09 | INFO     | src.data_collection | Loading cached data: HDFCBANK_2021-01-01_2025-12-31.parquet
+2026-04-25 17:46:09 | INFO     | src.data_collection | Validated HDFCBANK: 1235 rows, 2021-01-01 → 2025-12-30
+2026-04-25 17:46:09 | WARNING  | src.preprocessing | Winsorised 9 outliers in column 'Volume'.
+2026-04-25 17:46:09 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-04-25 17:46:09 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 17:46:09 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 49 NaN rows).
+2026-04-25 17:46:09 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-04-25 17:46:09 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-04-25 17:46:09 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0056  RMSE=0.0077  MAPE=1.66%  R²=0.9985
+2026-04-25 17:46:09 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9985
+2026-04-25 17:46:09 | INFO     | src.evaluation | [Linear Regression] MAE=2.3717 RMSE=2.7481 MAPE=0.24% R²=0.9735
+2026-04-25 17:47:36 | INFO     | src.evaluation | [Linear Regression] Backtest → Return=-4.6%  B&H=-1.0%  Sharpe=-1.19  MaxDD=-6.3%
+2026-04-25 17:47:47 | INFO     | src.evaluation | [Linear Regression] Backtest → Return=-4.6%  B&H=-1.0%  Sharpe=-1.19  MaxDD=-6.3%
+2026-04-25 17:48:47 | INFO     | src.data_collection | Fetching MARUTI.NS from Yahoo Finance (2021-01-01 → 2026-04-25)
+2026-04-25 17:48:47 | INFO     | src.data_collection | Validated MARUTI: 1312 rows, 2021-01-01 → 2026-04-24
+2026-04-25 17:48:47 | INFO     | src.data_collection | Cached 1312 rows → MARUTI_2021-01-01_2026-04-25.parquet
+2026-04-25 17:48:47 | WARNING  | src.preprocessing | Winsorised 1 outliers in column 'Close'.
+2026-04-25 17:48:47 | WARNING  | src.preprocessing | Winsorised 7 outliers in column 'Volume'.
+2026-04-25 17:48:47 | INFO     | src.preprocessing | Cleaned DataFrame: 1312 rows, NaN remaining: 1
+2026-04-25 17:48:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-04-25 17:48:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1263 rows (dropped 49 NaN rows).
+2026-04-25 17:48:48 | INFO     | src.preprocessing | Split → train=884 [2021-03-15→2024-10-11]  val=189 [2024-10-14→2025-07-16]  test=190 [2025-07-17→2026-04-24]
+2026-04-25 17:48:48 | INFO     | src.preprocessing | Scaler fitted on 884 training rows.
+2026-04-25 17:48:48 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0030  RMSE=0.0044  MAPE=1.24%  R²=0.9997
+2026-04-25 17:48:48 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9997
+2026-04-25 17:48:48 | INFO     | src.evaluation | [Linear Regression] MAE=80.0529 RMSE=114.1946 MAPE=0.56% R²=0.9929
+2026-04-25 17:49:19 | INFO     | src.evaluation | [Linear Regression] Backtest → Return=-12.5%  B&H=-19.8%  Sharpe=-1.43  MaxDD=-17.7%
+2026-05-02 12:34:13 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:14 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:14 | INFO     | src.preprocessing | Split → train=315 [2019-03-11→2020-05-22]  val=68 [2020-05-25→2020-08-26]  test=68 [2020-08-27→2020-11-30]
+2026-05-02 12:34:14 | INFO     | src.preprocessing | Scaler fitted on 315 training rows.
+2026-05-02 12:34:14 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0067  RMSE=0.0084  MAPE=2.12%  R²=0.9990
+2026-05-02 12:34:14 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9990
+2026-05-02 12:34:14 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 50 NaN rows).
+2026-05-02 12:34:14 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 51 NaN rows).
+2026-05-02 12:34:14 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 52 NaN rows).
+2026-05-02 12:34:14 | INFO     | src.forecasting | Future forecast (3 steps) last_hist=2020-11-30 first_pred=1039.6798 signal=Buy
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Split → train=350 [2019-01-01→2020-05-04]  val=75 [2020-05-05→2020-08-17]  test=75 [2020-08-18→2020-11-30]
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Split → train=315 [2019-03-11→2020-05-22]  val=68 [2020-05-25→2020-08-26]  test=68 [2020-08-27→2020-11-30]
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Scaler fitted on 315 training rows.
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Split → train=315 [2019-03-11→2020-05-22]  val=68 [2020-05-25→2020-08-26]  test=68 [2020-08-27→2020-11-30]
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Scaler fitted on 315 training rows.
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Split → train=315 [2019-03-11→2020-05-22]  val=68 [2020-05-25→2020-08-26]  test=68 [2020-08-27→2020-11-30]
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Scaler fitted on 315 training rows.
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 300 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:19 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:19 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.models.base_model | [LinearRegression] MAE=0.2362  RMSE=0.2726  MAPE=163.38%  R²=0.0687
+2026-05-02 12:34:20 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.0687
+2026-05-02 12:34:20 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0000  RMSE=0.0000  MAPE=0.00%  R²=1.0000
+2026-05-02 12:34:20 | INFO     | src.models.base_model | [LinearRegression] MAE=0.2362  RMSE=0.2726  MAPE=163.38%  R²=0.0687
+2026-05-02 12:34:20 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.0687
+2026-05-02 12:34:20 | INFO     | src.models.linear_model | LinearRegression saved → C:\Users\msb29\AppData\Local\Temp\pytest-of-msb29\pytest-0\test_save_load0\lr.pkl
+2026-05-02 12:34:20 | INFO     | src.models.linear_model | LinearRegression loaded ← C:\Users\msb29\AppData\Local\Temp\pytest-of-msb29\pytest-0\test_save_load0\lr.pkl
+2026-05-02 12:34:20 | INFO     | src.models.base_model | [RandomForest] MAE=0.1128  RMSE=0.1342  MAPE=79.06%  R²=0.7743
+2026-05-02 12:34:20 | INFO     | src.models.rf_model | Random Forest trained.  OOB R²=0.0053  Train R²=0.7743
+2026-05-02 12:34:20 | INFO     | src.models.base_model | [RandomForest] MAE=0.1263  RMSE=0.1464  MAPE=109.07%  R²=0.7674
+2026-05-02 12:34:20 | INFO     | src.models.rf_model | Random Forest trained.  OOB R²=-0.1328  Train R²=0.7674
+2026-05-02 12:34:20 | INFO     | src.models.svr_model | SVR fitting on 100 samples…
+2026-05-02 12:34:20 | INFO     | src.models.base_model | [SVR] MAE=0.1697  RMSE=0.2143  MAPE=136.04%  R²=0.4149
+2026-05-02 12:34:20 | INFO     | src.models.svr_model | SVR trained.  Train R²=0.4149
+2026-05-02 12:34:20 | WARNING  | src.sentiment | VADER not available. Sentiment will default to zero.
+2026-05-02 12:34:20 | WARNING  | src.sentiment | VADER unavailable — returning zero scores.
+2026-05-02 12:34:20 | INFO     | src.evaluation | [ModelA] MAE=22.6753 RMSE=28.5572 MAPE=1.83% R²=0.9611
+2026-05-02 12:34:20 | INFO     | src.evaluation | [ModelB] MAE=12.1074 RMSE=15.5571 MAPE=0.98% R²=0.9885
+2026-05-02 12:34:20 | INFO     | src.evaluation | [ModelA] MAE=22.6753 RMSE=28.5572 MAPE=1.83% R²=0.9611
+2026-05-02 12:34:20 | INFO     | src.evaluation | [ModelB] MAE=12.1074 RMSE=15.5571 MAPE=0.98% R²=0.9885
+2026-05-02 12:34:20 | INFO     | src.evaluation | [ModelA] MAE=22.6753 RMSE=28.5572 MAPE=1.83% R²=0.9611
+2026-05-02 12:34:20 | INFO     | src.evaluation | [ModelB] MAE=12.1074 RMSE=15.5571 MAPE=0.98% R²=0.9885
+2026-05-02 12:34:20 | INFO     | src.evaluation | [ModelB] Backtest → Return=-2.3%  B&H=48.7%  Sharpe=-0.13  MaxDD=-14.3%
+2026-05-02 12:34:20 | INFO     | src.evaluation | [Perfect] MAE=0.0000 RMSE=0.0000 MAPE=0.00% R²=1.0000
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Split → train=315 [2019-03-11→2020-05-22]  val=68 [2020-05-25→2020-08-26]  test=68 [2020-08-27→2020-11-30]
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Scaler fitted on 315 training rows.
+2026-05-02 12:34:20 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0067  RMSE=0.0084  MAPE=2.12%  R²=0.9990
+2026-05-02 12:34:20 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9990
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 50 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 51 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 52 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.forecasting | Future forecast (3 steps) last_hist=2020-11-30 first_pred=1039.6798 signal=Buy
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 49 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:34:20 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Split → train=315 [2019-03-11→2020-05-22]  val=68 [2020-05-25→2020-08-26]  test=68 [2020-08-27→2020-11-30]
+2026-05-02 12:34:20 | INFO     | src.preprocessing | Scaler fitted on 315 training rows.
+2026-05-02 12:34:21 | INFO     | src.models.base_model | [RandomForest] MAE=0.0082  RMSE=0.0115  MAPE=4.15%  R²=0.9982
+2026-05-02 12:34:21 | INFO     | src.models.rf_model | Random Forest trained.  OOB R²=0.9907  Train R²=0.9982
+2026-05-02 12:34:21 | INFO     | src.evaluation | [RF] MAE=21.7497 RMSE=31.4254 MAPE=1.99% R²=-0.0470
+2026-05-02 12:34:21 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-05-02 12:34:21 | INFO     | src.database | Database initialised at C:\Users\msb29\AppData\Local\Temp\pytest-of-msb29\pytest-0\test_database_round_trip0\test.db
+2026-05-02 12:34:21 | INFO     | src.database | Saved 500 price rows for TEST.
+2026-05-02 12:36:28 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-05-02 12:36:57 | INFO     | src.data_collection | Fetching RELIANCE.NS from Yahoo Finance (2021-01-01 → 2025-05-01)
+2026-05-02 12:37:01 | INFO     | src.data_collection | Validated RELIANCE: 1068 rows, 2021-01-01 → 2025-04-30
+2026-05-02 12:37:01 | INFO     | src.data_collection | Cached 1068 rows → RELIANCE_2021-01-01_2025-05-01.parquet
+2026-05-02 12:37:01 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 12:37:01 | INFO     | src.preprocessing | Cleaned DataFrame: 1068 rows, NaN remaining: 1
+2026-05-02 12:37:01 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:37:01 | INFO     | src.feature_engineering | Features built: 49 columns, 1019 rows (dropped 49 NaN rows).
+2026-05-02 12:37:01 | INFO     | src.preprocessing | Split → train=713 [2021-03-15→2024-01-31]  val=153 [2024-02-01→2024-09-16]  test=153 [2024-09-17→2025-04-30]
+2026-05-02 12:37:01 | INFO     | src.preprocessing | Scaler fitted on 713 training rows.
+2026-05-02 12:37:02 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0042  RMSE=0.0057  MAPE=0.99%  R²=0.9985
+2026-05-02 12:37:02 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9985
+2026-05-02 12:37:02 | INFO     | src.evaluation | [Linear Regression] MAE=3.5271 RMSE=4.8566 MAPE=0.28% R²=0.9860
+2026-05-02 12:37:02 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:37:02 | INFO     | src.feature_engineering | Features built: 49 columns, 1019 rows (dropped 50 NaN rows).
+2026-05-02 12:37:02 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:37:02 | INFO     | src.feature_engineering | Features built: 49 columns, 1019 rows (dropped 51 NaN rows).
+2026-05-02 12:37:03 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:37:03 | INFO     | src.feature_engineering | Features built: 49 columns, 1019 rows (dropped 52 NaN rows).
+2026-05-02 12:37:03 | INFO     | src.forecasting | Future forecast (3 steps) last_hist=2025-04-30 first_pred=1385.0363 signal=Sell
+2026-05-02 12:38:08 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2025-05-01.parquet
+2026-05-02 12:38:09 | INFO     | src.data_collection | Validated RELIANCE: 1068 rows, 2021-01-01 → 2025-04-30
+2026-05-02 12:38:09 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 12:38:09 | INFO     | src.preprocessing | Cleaned DataFrame: 1068 rows, NaN remaining: 1
+2026-05-02 12:38:09 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:38:09 | INFO     | src.feature_engineering | Features built: 49 columns, 1019 rows (dropped 49 NaN rows).
+2026-05-02 12:38:09 | INFO     | src.preprocessing | Split → train=713 [2021-03-15→2024-01-31]  val=153 [2024-02-01→2024-09-16]  test=153 [2024-09-17→2025-04-30]
+2026-05-02 12:38:09 | INFO     | src.preprocessing | Scaler fitted on 713 training rows.
+2026-05-02 12:38:09 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0042  RMSE=0.0057  MAPE=0.99%  R²=0.9985
+2026-05-02 12:38:09 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9985
+2026-05-02 12:38:09 | INFO     | src.evaluation | [Linear Regression] MAE=3.5271 RMSE=4.8566 MAPE=0.28% R²=0.9860
+2026-05-02 12:38:09 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:38:09 | INFO     | src.feature_engineering | Features built: 49 columns, 1019 rows (dropped 50 NaN rows).
+2026-05-02 12:38:09 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:38:09 | INFO     | src.feature_engineering | Features built: 49 columns, 1019 rows (dropped 51 NaN rows).
+2026-05-02 12:38:09 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:38:09 | INFO     | src.feature_engineering | Features built: 49 columns, 1019 rows (dropped 52 NaN rows).
+2026-05-02 12:38:09 | INFO     | src.forecasting | Future forecast (3 steps) last_hist=2025-04-30 first_pred=1385.0363 signal=Sell
+2026-05-02 12:38:22 | INFO     | src.data_collection | Fetching RELIANCE.NS from Yahoo Finance (2021-01-01 → 2026-05-01)
+2026-05-02 12:38:23 | INFO     | src.data_collection | Validated RELIANCE: 1316 rows, 2021-01-01 → 2026-04-30
+2026-05-02 12:38:23 | INFO     | src.data_collection | Cached 1316 rows → RELIANCE_2021-01-01_2026-05-01.parquet
+2026-05-02 12:38:23 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 12:38:23 | INFO     | src.preprocessing | Cleaned DataFrame: 1316 rows, NaN remaining: 1
+2026-05-02 12:38:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:38:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 49 NaN rows).
+2026-05-02 12:38:23 | INFO     | src.preprocessing | Split → train=886 [2021-03-15→2024-10-15]  val=190 [2024-10-16→2025-07-21]  test=191 [2025-07-22→2026-04-30]
+2026-05-02 12:38:23 | INFO     | src.preprocessing | Scaler fitted on 886 training rows.
+2026-05-02 12:38:23 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0036  RMSE=0.0047  MAPE=0.93%  R²=0.9995
+2026-05-02 12:38:23 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9995
+2026-05-02 12:38:23 | INFO     | src.evaluation | [Linear Regression] MAE=3.2038 RMSE=4.3463 MAPE=0.22% R²=0.9966
+2026-05-02 12:38:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:38:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 50 NaN rows).
+2026-05-02 12:38:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:38:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 51 NaN rows).
+2026-05-02 12:38:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:38:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 52 NaN rows).
+2026-05-02 12:38:23 | INFO     | src.forecasting | Future forecast (3 steps) last_hist=2026-04-30 first_pred=1422.1029 signal=Sell
+2026-05-02 12:42:10 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 12:42:10 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 12:42:10 | INFO     | src.preprocessing | Split → train=315 [2019-03-11→2020-05-22]  val=68 [2020-05-25→2020-08-26]  test=68 [2020-08-27→2020-11-30]
+2026-05-02 12:42:10 | INFO     | src.preprocessing | Scaler fitted on 315 training rows.
+2026-05-02 12:42:10 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0067  RMSE=0.0084  MAPE=2.12%  R²=0.9990
+2026-05-02 12:42:10 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9990
+2026-05-02 12:42:10 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 50 NaN rows).
+2026-05-02 12:42:10 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 51 NaN rows).
+2026-05-02 12:42:11 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 52 NaN rows).
+2026-05-02 12:42:11 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 53 NaN rows).
+2026-05-02 12:42:11 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 54 NaN rows).
+2026-05-02 12:42:11 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 55 NaN rows).
+2026-05-02 12:42:11 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 56 NaN rows).
+2026-05-02 12:42:11 | INFO     | src.forecasting | Future forecast (7 steps) last_hist=2020-11-30 first_pred=1039.6798 signal=Buy
+2026-05-02 12:42:34 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-05-02 12:43:25 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2025-12-31.parquet
+2026-05-02 12:43:25 | INFO     | src.data_collection | Validated RELIANCE: 1235 rows, 2021-01-01 → 2025-12-30
+2026-05-02 12:43:25 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 12:43:25 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-05-02 12:43:25 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:43:25 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 49 NaN rows).
+2026-05-02 12:43:25 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-05-02 12:43:25 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-05-02 12:43:38 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-05-02 12:44:20 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=4  Final val_loss=0.005719
+2026-05-02 12:44:21 | INFO     | src.evaluation | [LSTM] MAE=212.0956 RMSE=227.5444 MAPE=14.39% R²=-9.1434
+2026-05-02 12:44:21 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:21 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 50 NaN rows).
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 51 NaN rows).
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 52 NaN rows).
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 53 NaN rows).
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 54 NaN rows).
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 55 NaN rows).
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:22 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 56 NaN rows).
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 57 NaN rows).
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 58 NaN rows).
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 59 NaN rows).
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 60 NaN rows).
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 61 NaN rows).
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:23 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 62 NaN rows).
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 63 NaN rows).
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 64 NaN rows).
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 65 NaN rows).
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 66 NaN rows).
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 67 NaN rows).
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:24 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 68 NaN rows).
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 69 NaN rows).
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 70 NaN rows).
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 71 NaN rows).
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 72 NaN rows).
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 73 NaN rows).
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:25 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 74 NaN rows).
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 75 NaN rows).
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 76 NaN rows).
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 77 NaN rows).
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 78 NaN rows).
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 79 NaN rows).
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:26 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 80 NaN rows).
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 81 NaN rows).
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 82 NaN rows).
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 83 NaN rows).
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 84 NaN rows).
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 85 NaN rows).
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:27 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 86 NaN rows).
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 87 NaN rows).
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 88 NaN rows).
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 89 NaN rows).
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 90 NaN rows).
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 91 NaN rows).
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:28 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 92 NaN rows).
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 93 NaN rows).
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 94 NaN rows).
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 95 NaN rows).
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 96 NaN rows).
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:29 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 97 NaN rows).
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 98 NaN rows).
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 99 NaN rows).
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 100 NaN rows).
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 101 NaN rows).
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 102 NaN rows).
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:30 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 103 NaN rows).
+2026-05-02 12:44:31 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:31 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 104 NaN rows).
+2026-05-02 12:44:31 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:44:31 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 105 NaN rows).
+2026-05-02 12:44:31 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2025-12-30 first_pred=1246.0468 signal=Sell
+2026-05-02 12:45:44 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2025-12-31.parquet
+2026-05-02 12:45:44 | INFO     | src.data_collection | Validated RELIANCE: 1235 rows, 2021-01-01 → 2025-12-30
+2026-05-02 12:45:44 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 12:45:44 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-05-02 12:45:44 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:44 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 49 NaN rows).
+2026-05-02 12:45:44 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-05-02 12:45:44 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-05-02 12:45:44 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0036  RMSE=0.0048  MAPE=0.96%  R²=0.9994
+2026-05-02 12:45:44 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9994
+2026-05-02 12:45:44 | INFO     | src.evaluation | [Linear Regression] MAE=2.3682 RMSE=3.2853 MAPE=0.16% R²=0.9979
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 50 NaN rows).
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 51 NaN rows).
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 52 NaN rows).
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 53 NaN rows).
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 54 NaN rows).
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 55 NaN rows).
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 56 NaN rows).
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 57 NaN rows).
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 58 NaN rows).
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:45 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 59 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 60 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 61 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 62 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 63 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 64 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 65 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 66 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 67 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 68 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 69 NaN rows).
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:46 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 70 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 71 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 72 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 73 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 74 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 75 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 76 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 77 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 78 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 79 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 80 NaN rows).
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:47 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 81 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 82 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 83 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 84 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 85 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 86 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 87 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 88 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 89 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 90 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 91 NaN rows).
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:48 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 92 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 93 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 94 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 95 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 96 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 97 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 98 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 99 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 100 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 101 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 102 NaN rows).
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:49 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 103 NaN rows).
+2026-05-02 12:45:50 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:50 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 104 NaN rows).
+2026-05-02 12:45:50 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:45:50 | INFO     | src.feature_engineering | Features built: 49 columns, 1186 rows (dropped 105 NaN rows).
+2026-05-02 12:45:50 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2025-12-30 first_pred=1537.0227 signal=Sell
+2026-05-02 12:46:13 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-05-01.parquet
+2026-05-02 12:46:13 | INFO     | src.data_collection | Validated RELIANCE: 1316 rows, 2021-01-01 → 2026-04-30
+2026-05-02 12:46:13 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 12:46:13 | INFO     | src.preprocessing | Cleaned DataFrame: 1316 rows, NaN remaining: 1
+2026-05-02 12:46:13 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:13 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 49 NaN rows).
+2026-05-02 12:46:13 | INFO     | src.preprocessing | Split → train=886 [2021-03-15→2024-10-15]  val=190 [2024-10-16→2025-07-21]  test=191 [2025-07-22→2026-04-30]
+2026-05-02 12:46:13 | INFO     | src.preprocessing | Scaler fitted on 886 training rows.
+2026-05-02 12:46:13 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0036  RMSE=0.0047  MAPE=0.93%  R²=0.9995
+2026-05-02 12:46:13 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9995
+2026-05-02 12:46:13 | INFO     | src.evaluation | [Linear Regression] MAE=3.2038 RMSE=4.3463 MAPE=0.22% R²=0.9966
+2026-05-02 12:46:13 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:13 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 50 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 51 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 52 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 53 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 54 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 55 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 56 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 57 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 58 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 59 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 60 NaN rows).
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:14 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 61 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 62 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 63 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 64 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 65 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 66 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 67 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 68 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 69 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 70 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 71 NaN rows).
+2026-05-02 12:46:15 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 72 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 73 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 74 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 75 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 76 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 77 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 78 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 79 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 80 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 81 NaN rows).
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:16 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 82 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 83 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 84 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 85 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 86 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 87 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 88 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 89 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 90 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 91 NaN rows).
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:17 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 92 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 93 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 94 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 95 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 96 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 97 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 98 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 99 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 100 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 101 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 102 NaN rows).
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 103 NaN rows).
+2026-05-02 12:46:19 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:19 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 104 NaN rows).
+2026-05-02 12:46:19 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 12:46:19 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 105 NaN rows).
+2026-05-02 12:46:19 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2026-04-30 first_pred=1422.1029 signal=Sell
+2026-05-02 12:51:02 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-05-02 12:51:18 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-05-01.parquet
+2026-05-02 12:51:18 | INFO     | src.data_collection | Validated RELIANCE: 1316 rows, 2021-01-01 → 2026-04-30
+2026-05-02 12:51:18 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 12:51:18 | INFO     | src.preprocessing | Cleaned DataFrame: 1316 rows, NaN remaining: 1
+2026-05-02 12:51:18 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 49 NaN rows).
+2026-05-02 12:51:18 | INFO     | src.preprocessing | Split → train=886 [2021-03-15→2024-10-15]  val=190 [2024-10-16→2025-07-21]  test=191 [2025-07-22→2026-04-30]
+2026-05-02 12:51:19 | INFO     | src.preprocessing | Scaler fitted on 886 training rows.
+2026-05-02 12:51:22 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-05-02 12:54:03 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=29  Final val_loss=0.006558
+2026-05-02 12:54:04 | INFO     | src.evaluation | [LSTM] MAE=131.3276 RMSE=144.4237 MAPE=8.96% R²=-2.7311
+2026-05-02 12:54:04 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 50 NaN rows).
+2026-05-02 12:54:04 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 51 NaN rows).
+2026-05-02 12:54:04 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 52 NaN rows).
+2026-05-02 12:54:04 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 53 NaN rows).
+2026-05-02 12:54:04 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 54 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 55 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 56 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 57 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 58 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 59 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 60 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 61 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 62 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 63 NaN rows).
+2026-05-02 12:54:05 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 64 NaN rows).
+2026-05-02 12:54:06 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 65 NaN rows).
+2026-05-02 12:54:06 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 66 NaN rows).
+2026-05-02 12:54:06 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 67 NaN rows).
+2026-05-02 12:54:06 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 68 NaN rows).
+2026-05-02 12:54:06 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 69 NaN rows).
+2026-05-02 12:54:06 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 70 NaN rows).
+2026-05-02 12:54:06 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 71 NaN rows).
+2026-05-02 12:54:06 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 72 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 73 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 74 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 75 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 76 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 77 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 78 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 79 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 80 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 81 NaN rows).
+2026-05-02 12:54:07 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 82 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 83 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 84 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 85 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 86 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 87 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 88 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 89 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 90 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 91 NaN rows).
+2026-05-02 12:54:08 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 92 NaN rows).
+2026-05-02 12:54:09 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 93 NaN rows).
+2026-05-02 12:54:09 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 94 NaN rows).
+2026-05-02 12:54:09 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 95 NaN rows).
+2026-05-02 12:54:09 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 96 NaN rows).
+2026-05-02 12:54:09 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 97 NaN rows).
+2026-05-02 12:54:09 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 98 NaN rows).
+2026-05-02 12:54:09 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 99 NaN rows).
+2026-05-02 12:54:09 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 100 NaN rows).
+2026-05-02 12:54:10 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 101 NaN rows).
+2026-05-02 12:54:10 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 102 NaN rows).
+2026-05-02 12:54:10 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 103 NaN rows).
+2026-05-02 12:54:10 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 104 NaN rows).
+2026-05-02 12:54:10 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 105 NaN rows).
+2026-05-02 12:54:10 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2026-04-30 first_pred=1390.5760 signal=Sell
+2026-05-02 12:54:38 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2025-12-31.parquet
+2026-05-02 12:54:38 | INFO     | src.data_collection | Validated RELIANCE: 1235 rows, 2021-01-01 → 2025-12-30
+2026-05-02 12:54:38 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 12:54:38 | INFO     | src.preprocessing | Cleaned DataFrame: 1235 rows, NaN remaining: 1
+2026-05-02 12:54:38 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 49 NaN rows).
+2026-05-02 12:54:38 | INFO     | src.preprocessing | Split → train=830 [2021-03-15→2024-07-25]  val=178 [2024-07-26→2025-04-11]  test=178 [2025-04-15→2025-12-30]
+2026-05-02 12:54:38 | INFO     | src.preprocessing | Scaler fitted on 830 training rows.
+2026-05-02 12:54:38 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-05-02 12:56:41 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=18  Final val_loss=0.006517
+2026-05-02 12:56:42 | INFO     | src.evaluation | [LSTM] MAE=224.9519 RMSE=249.1067 MAPE=15.24% R²=-11.1568
+2026-05-02 12:56:42 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 50 NaN rows).
+2026-05-02 12:56:42 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 51 NaN rows).
+2026-05-02 12:56:42 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 52 NaN rows).
+2026-05-02 12:56:42 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 53 NaN rows).
+2026-05-02 12:56:42 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 54 NaN rows).
+2026-05-02 12:56:42 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 55 NaN rows).
+2026-05-02 12:56:43 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 56 NaN rows).
+2026-05-02 12:56:43 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 57 NaN rows).
+2026-05-02 12:56:43 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 58 NaN rows).
+2026-05-02 12:56:43 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 59 NaN rows).
+2026-05-02 12:56:43 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 60 NaN rows).
+2026-05-02 12:56:43 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 61 NaN rows).
+2026-05-02 12:56:43 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 62 NaN rows).
+2026-05-02 12:56:43 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 63 NaN rows).
+2026-05-02 12:56:43 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 64 NaN rows).
+2026-05-02 12:56:44 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 65 NaN rows).
+2026-05-02 12:56:44 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 66 NaN rows).
+2026-05-02 12:56:44 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 67 NaN rows).
+2026-05-02 12:56:44 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 68 NaN rows).
+2026-05-02 12:56:44 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 69 NaN rows).
+2026-05-02 12:56:44 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 70 NaN rows).
+2026-05-02 12:56:44 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 71 NaN rows).
+2026-05-02 12:56:44 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 72 NaN rows).
+2026-05-02 12:56:44 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 73 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 74 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 75 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 76 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 77 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 78 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 79 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 80 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 81 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 82 NaN rows).
+2026-05-02 12:56:45 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 83 NaN rows).
+2026-05-02 12:56:46 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 84 NaN rows).
+2026-05-02 12:56:46 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 85 NaN rows).
+2026-05-02 12:56:46 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 86 NaN rows).
+2026-05-02 12:56:46 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 87 NaN rows).
+2026-05-02 12:56:46 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 88 NaN rows).
+2026-05-02 12:56:46 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 89 NaN rows).
+2026-05-02 12:56:46 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 90 NaN rows).
+2026-05-02 12:56:46 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 91 NaN rows).
+2026-05-02 12:56:46 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 92 NaN rows).
+2026-05-02 12:56:47 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 93 NaN rows).
+2026-05-02 12:56:47 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 94 NaN rows).
+2026-05-02 12:56:47 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 95 NaN rows).
+2026-05-02 12:56:47 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 96 NaN rows).
+2026-05-02 12:56:47 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 97 NaN rows).
+2026-05-02 12:56:47 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 98 NaN rows).
+2026-05-02 12:56:47 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 99 NaN rows).
+2026-05-02 12:56:47 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 100 NaN rows).
+2026-05-02 12:56:47 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 101 NaN rows).
+2026-05-02 12:56:48 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 102 NaN rows).
+2026-05-02 12:56:48 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 103 NaN rows).
+2026-05-02 12:56:48 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 104 NaN rows).
+2026-05-02 12:56:48 | INFO     | src.feature_engineering | Features built: 44 columns, 1186 rows (dropped 105 NaN rows).
+2026-05-02 12:56:48 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2025-12-30 first_pred=1226.3820 signal=Sell
+2026-05-02 13:00:50 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-05-02 13:01:06 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-05-01.parquet
+2026-05-02 13:01:06 | INFO     | src.data_collection | Validated RELIANCE: 1316 rows, 2021-01-01 → 2026-04-30
+2026-05-02 13:01:06 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 13:01:06 | INFO     | src.preprocessing | Cleaned DataFrame: 1316 rows, NaN remaining: 1
+2026-05-02 13:01:06 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 49 NaN rows).
+2026-05-02 13:01:06 | INFO     | src.preprocessing | Split → train=886 [2021-03-15→2024-10-15]  val=190 [2024-10-16→2025-07-21]  test=191 [2025-07-22→2026-04-30]
+2026-05-02 13:01:06 | INFO     | src.preprocessing | Scaler fitted on 886 training rows.
+2026-05-02 13:01:10 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-05-02 13:03:54 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=37  Final val_loss=0.018682
+2026-05-02 13:03:55 | INFO     | src.evaluation | [LSTM] MAE=109.0291 RMSE=132.4557 MAPE=7.59% R²=-2.1383
+2026-05-02 13:03:55 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 50 NaN rows).
+2026-05-02 13:03:55 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 51 NaN rows).
+2026-05-02 13:03:55 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 52 NaN rows).
+2026-05-02 13:03:55 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 53 NaN rows).
+2026-05-02 13:03:55 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 54 NaN rows).
+2026-05-02 13:03:55 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 55 NaN rows).
+2026-05-02 13:03:55 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 56 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 57 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 58 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 59 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 60 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 61 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 62 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 63 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 64 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 65 NaN rows).
+2026-05-02 13:03:56 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 66 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 67 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 68 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 69 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 70 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 71 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 72 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 73 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 74 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 75 NaN rows).
+2026-05-02 13:03:57 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 76 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 77 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 78 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 79 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 80 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 81 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 82 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 83 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 84 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 85 NaN rows).
+2026-05-02 13:03:58 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 86 NaN rows).
+2026-05-02 13:03:59 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 87 NaN rows).
+2026-05-02 13:03:59 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 88 NaN rows).
+2026-05-02 13:03:59 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 89 NaN rows).
+2026-05-02 13:03:59 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 90 NaN rows).
+2026-05-02 13:03:59 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 91 NaN rows).
+2026-05-02 13:03:59 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 92 NaN rows).
+2026-05-02 13:03:59 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 93 NaN rows).
+2026-05-02 13:03:59 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 94 NaN rows).
+2026-05-02 13:03:59 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 95 NaN rows).
+2026-05-02 13:04:00 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 96 NaN rows).
+2026-05-02 13:04:00 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 97 NaN rows).
+2026-05-02 13:04:00 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 98 NaN rows).
+2026-05-02 13:04:00 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 99 NaN rows).
+2026-05-02 13:04:00 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 100 NaN rows).
+2026-05-02 13:04:00 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 101 NaN rows).
+2026-05-02 13:04:00 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 102 NaN rows).
+2026-05-02 13:04:00 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 103 NaN rows).
+2026-05-02 13:04:01 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 104 NaN rows).
+2026-05-02 13:04:01 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 105 NaN rows).
+2026-05-02 13:04:01 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2026-04-30 first_pred=1407.1058 signal=Sell
+2026-05-02 13:07:59 | INFO     | src.preprocessing | Cleaned DataFrame: 500 rows, NaN remaining: 1
+2026-05-02 13:07:59 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 49 NaN rows).
+2026-05-02 13:07:59 | INFO     | src.preprocessing | Split → train=315 [2019-03-11→2020-05-22]  val=68 [2020-05-25→2020-08-26]  test=68 [2020-08-27→2020-11-30]
+2026-05-02 13:07:59 | INFO     | src.preprocessing | Scaler fitted on 315 training rows.
+2026-05-02 13:07:59 | INFO     | src.models.base_model | [LinearRegression] MAE=0.0067  RMSE=0.0084  MAPE=2.12%  R²=0.9990
+2026-05-02 13:07:59 | INFO     | src.models.linear_model | Linear Regression trained.  Train R²=0.9990
+2026-05-02 13:07:59 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 50 NaN rows).
+2026-05-02 13:07:59 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 51 NaN rows).
+2026-05-02 13:07:59 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 52 NaN rows).
+2026-05-02 13:07:59 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 53 NaN rows).
+2026-05-02 13:07:59 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 54 NaN rows).
+2026-05-02 13:07:59 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 55 NaN rows).
+2026-05-02 13:07:59 | INFO     | src.feature_engineering | Features built: 44 columns, 451 rows (dropped 56 NaN rows).
+2026-05-02 13:07:59 | INFO     | src.forecasting | Future forecast (7 steps) last_hist=2020-11-30 first_pred=1039.6798 signal=Buy
+2026-05-02 13:08:21 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-05-02 13:08:41 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-05-01.parquet
+2026-05-02 13:08:41 | INFO     | src.data_collection | Validated RELIANCE: 1316 rows, 2021-01-01 → 2026-04-30
+2026-05-02 13:08:41 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 13:08:41 | INFO     | src.preprocessing | Cleaned DataFrame: 1316 rows, NaN remaining: 1
+2026-05-02 13:08:41 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 49 NaN rows).
+2026-05-02 13:08:41 | INFO     | src.preprocessing | Split → train=886 [2021-03-15→2024-10-15]  val=190 [2024-10-16→2025-07-21]  test=191 [2025-07-22→2026-04-30]
+2026-05-02 13:08:41 | INFO     | src.preprocessing | Scaler fitted on 886 training rows.
+2026-05-02 13:08:44 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-05-02 13:10:26 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=9  Final val_loss=1.233465
+2026-05-02 13:10:27 | INFO     | src.evaluation | [LSTM] MAE=15.2070 RMSE=20.4162 MAPE=1.06% R²=0.9254
+2026-05-02 13:10:33 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2026-04-30 first_pred=1437.8255 signal=Buy
+2026-05-02 13:18:48 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-05-02 13:20:39 | INFO     | src.data_collection | Fetching RELIANCE.NS from Yahoo Finance (2021-01-01 → 2026-05-02)
+2026-05-02 13:20:40 | INFO     | src.data_collection | Validated RELIANCE: 1316 rows, 2021-01-01 → 2026-04-30
+2026-05-02 13:20:40 | INFO     | src.data_collection | Cached 1316 rows → RELIANCE_2021-01-01_2026-05-02.parquet
+2026-05-02 13:20:40 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 13:20:40 | INFO     | src.preprocessing | Cleaned DataFrame: 1316 rows, NaN remaining: 1
+2026-05-02 13:20:40 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 49 NaN rows).
+2026-05-02 13:20:40 | INFO     | src.preprocessing | Split → train=886 [2021-03-15→2024-10-15]  val=190 [2024-10-16→2025-07-21]  test=191 [2025-07-22→2026-04-30]
+2026-05-02 13:20:40 | INFO     | src.preprocessing | Scaler fitted on 886 training rows.
+2026-05-02 13:20:44 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-05-02 13:25:55 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=7  Final val_loss=1.253742
+2026-05-02 13:25:56 | INFO     | src.evaluation | [LSTM] MAE=16.8411 RMSE=22.6240 MAPE=1.18% R²=0.9084
+2026-05-02 13:26:00 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2026-04-30 first_pred=1426.1666 signal=Sell
+2026-05-02 13:26:36 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-05-02.parquet
+2026-05-02 13:26:36 | INFO     | src.data_collection | Validated RELIANCE: 1316 rows, 2021-01-01 → 2026-04-30
+2026-05-02 13:26:36 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 13:26:36 | INFO     | src.preprocessing | Cleaned DataFrame: 1316 rows, NaN remaining: 1
+2026-05-02 13:26:37 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 13:26:37 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 49 NaN rows).
+2026-05-02 13:26:37 | INFO     | src.preprocessing | Split → train=886 [2021-03-15→2024-10-15]  val=190 [2024-10-16→2025-07-21]  test=191 [2025-07-22→2026-04-30]
+2026-05-02 13:26:37 | INFO     | src.preprocessing | Scaler fitted on 886 training rows.
+2026-05-02 13:26:37 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-05-02 13:31:52 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=2  Final val_loss=1.198170
+2026-05-02 13:31:53 | INFO     | src.evaluation | [LSTM] MAE=16.8045 RMSE=22.3169 MAPE=1.17% R²=0.9109
+2026-05-02 13:31:57 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2026-04-30 first_pred=1426.3757 signal=Sell
+2026-05-02 13:37:10 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-05-02 13:37:18 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-05-02.parquet
+2026-05-02 13:37:18 | INFO     | src.data_collection | Validated RELIANCE: 1316 rows, 2021-01-01 → 2026-04-30
+2026-05-02 13:37:18 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 13:37:18 | INFO     | src.preprocessing | Cleaned DataFrame: 1316 rows, NaN remaining: 1
+2026-05-02 13:37:18 | INFO     | src.feature_engineering | Sentiment merged: ['sentiment_mean', 'sentiment_std', 'news_count', 'positive_ratio', 'negative_ratio']
+2026-05-02 13:37:18 | INFO     | src.feature_engineering | Features built: 49 columns, 1267 rows (dropped 49 NaN rows).
+2026-05-02 13:37:18 | INFO     | src.preprocessing | Split → train=886 [2021-03-15→2024-10-15]  val=190 [2024-10-16→2025-07-21]  test=191 [2025-07-22→2026-04-30]
+2026-05-02 13:37:18 | INFO     | src.preprocessing | Scaler fitted on 886 training rows.
+2026-05-02 13:37:22 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-05-02 13:42:28 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=8  Final val_loss=1.339932
+2026-05-02 13:42:30 | INFO     | src.evaluation | [LSTM] MAE=17.7594 RMSE=23.0744 MAPE=1.24% R²=0.9048
+2026-05-02 13:42:33 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2026-04-30 first_pred=1428.9251 signal=Sell
+2026-05-02 14:06:15 | INFO     | src.database | Database initialised at F:\PROJECTS\PYTHON\stock_predictor\data\stock_predictor.db
+2026-05-02 14:06:53 | INFO     | src.data_collection | Loading cached data: RELIANCE_2021-01-01_2026-05-02.parquet
+2026-05-02 14:06:53 | INFO     | src.data_collection | Validated RELIANCE: 1316 rows, 2021-01-01 → 2026-04-30
+2026-05-02 14:06:53 | WARNING  | src.preprocessing | Winsorised 5 outliers in column 'Volume'.
+2026-05-02 14:06:53 | INFO     | src.preprocessing | Cleaned DataFrame: 1316 rows, NaN remaining: 1
+2026-05-02 14:06:53 | INFO     | src.feature_engineering | Features built: 44 columns, 1267 rows (dropped 49 NaN rows).
+2026-05-02 14:06:53 | INFO     | src.preprocessing | Split → train=886 [2021-03-15→2024-10-15]  val=190 [2024-10-16→2025-07-21]  test=191 [2025-07-22→2026-04-30]
+2026-05-02 14:06:53 | INFO     | src.preprocessing | Scaler fitted on 886 training rows.
+2026-05-02 14:07:01 | INFO     | src.models.lstm_model | LSTM architecture:
+None
+2026-05-02 14:14:06 | INFO     | src.models.lstm_model | LSTM trained. Best epoch=9  Final val_loss=1.172380
+2026-05-02 14:14:07 | INFO     | src.evaluation | [LSTM] MAE=17.1771 RMSE=22.6743 MAPE=1.20% R²=0.9080
+2026-05-02 14:14:11 | INFO     | src.forecasting | Future forecast (56 steps) last_hist=2026-04-30 first_pred=1423.0405 signal=Sell

@@ -363,6 +363,60 @@ class TestModelEvaluator:
         assert m["R2"]   == pytest.approx(1.0, abs=1e-9)
 
 
+class TestLstmReturnData:
+
+    def test_pct_returns(self):
+        from src.lstm_data import pct_returns
+
+        c = np.array([100.0, 102.0, 101.0], dtype=np.float64)
+        r = pct_returns(c)
+        assert r[0] == 0.0
+        assert r[1] == pytest.approx(0.02)
+        assert r[2] < 0
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Forward forecast
+# ──────────────────────────────────────────────────────────────────────────────
+
+class TestFutureForecast:
+
+    def test_future_close_forecast_tabular(self, clean_df):
+        import config
+        from src.feature_engineering import FeatureEngineer
+        from src.preprocessing import DataPreprocessor
+        from src.models.linear_model import LinearRegressionModel
+        from src.forecasting import future_close_forecast
+
+        engineer   = FeatureEngineer()
+        feature_df = engineer.build_features(clean_df)
+        pp         = DataPreprocessor()
+        train, _, _ = pp.split(feature_df)
+        feature_cols = [c for c in feature_df.columns if c != "Close"]
+        all_cols     = feature_cols + ["Close"]
+        train_sc     = pp.fit_scale(train, all_cols)
+        X_tr         = train_sc[feature_cols].values
+        y_tr         = train_sc["Close"].values
+        lb           = config.LOOK_BACK
+        model        = LinearRegressionModel()
+        model.train(X_tr[lb:], y_tr[lb:])
+        out = future_close_forecast(
+            clean_df      = clean_df,
+            engineer      = engineer,
+            preprocessor  = pp,
+            sentiment_df  = None,
+            model         = model,
+            is_lstm       = False,
+            feature_cols  = feature_cols,
+            n_steps       = config.FORECAST_WINDOW_DAYS,
+            test_r2       = 0.85,
+        )
+        assert len(out["prices"]) == config.FORECAST_WINDOW_DAYS
+        assert len(out["dates"]) == config.FORECAST_WINDOW_DAYS
+        assert out["confidence_pct"] >= 50
+        assert out["signal"] in ("Buy", "Sell", "Hold")
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Integration Tests
 # ──────────────────────────────────────────────────────────────────────────────

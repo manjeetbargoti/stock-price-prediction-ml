@@ -84,6 +84,7 @@ class StockPredictionPipeline:
         # Populated during run()
         self.feature_df: pd.DataFrame | None = None
         self.trained_models: dict = {}
+        self.lstm_ret_scaler = None
 
     # ── Main Entry ────────────────────────────────────────────────────────────
 
@@ -123,13 +124,32 @@ class StockPredictionPipeline:
         X_te_2d  = test_sc[feature_cols].values
         y_te     = test_sc["Close"].values
 
-        # Prepare 3-D sequences for LSTM
-        X_tr_3d,  y_tr_3d  = create_sequences(X_tr_2d,  y_tr)
-        X_val_3d, y_val_3d = create_sequences(X_val_2d, y_val)
-        X_te_3d,  y_te_3d  = create_sequences(X_te_2d,  y_te)
+        self.lstm_ret_scaler = None
+        if "LSTM" in self.model_names and config.LSTM_TARGET_MODE == "return":
+            from sklearn.preprocessing import StandardScaler
+            from src.lstm_data import prepare_lstm_return_sequences
+            self.lstm_ret_scaler = StandardScaler()
+            (X_tr_3d, y_tr_3d), (X_val_3d, y_val_3d), (X_te_3d, y_te_3d) = (
+                prepare_lstm_return_sequences(
+                    train_df, val_df, test_df, self.lstm_ret_scaler, config.LOOK_BACK
+                )
+            )
+            log.info(
+                "LSTM: return target (StandardScaler on daily %% returns), input (look_back, 1)"
+            )
+        else:
+            X_tr_3d,  y_tr_3d  = create_sequences(X_tr_2d,  y_tr)
+            X_val_3d, y_val_3d = create_sequences(X_val_2d, y_val)
+            X_te_3d,  y_te_3d  = create_sequences(X_te_2d,  y_te)
+            if "LSTM" in self.model_names and config.LSTM_UNIVARIATE_INPUT:
+                X_tr_3d,  y_tr_3d  = create_sequences(y_tr.reshape(-1, 1),  y_tr)
+                X_val_3d, y_val_3d = create_sequences(y_val.reshape(-1, 1), y_val)
+                X_te_3d,  y_te_3d  = create_sequences(y_te.reshape(-1, 1), y_te)
+                log.info("LSTM: univariate scaled Close — input shape (look_back, 1)")
 
-        # Actual (unscaled) test prices
-        test_actual = self.preprocessor.inverse_transform_prices(y_te_3d)
+        # Ground-truth closes on test (same alignment for all models)
+        _, y_te_close = create_sequences(y_te.reshape(-1, 1), y_te)
+        test_actual = self.preprocessor.inverse_transform_prices(y_te_close)
         test_dates  = test_df.index[config.LOOK_BACK:]
 
         # 7 — Train each model
@@ -156,9 +176,22 @@ class StockPredictionPipeline:
             model.train(X_train_in, y_train_in, **train_kwargs)
             self.trained_models[mname] = model
 
-            # Predict (scaled) → inverse-transform
             y_pred_sc = model.predict(X_test_in)
-            y_pred    = self.preprocessor.inverse_transform_prices(y_pred_sc)
+            if (
+                is_lstm
+                and config.LSTM_TARGET_MODE == "return"
+                and self.lstm_ret_scaler is not None
+            ):
+                from src.lstm_data import decode_return_predictions_to_close
+
+                y_pred = decode_return_predictions_to_close(
+                    y_pred_sc,
+                    self.lstm_ret_scaler,
+                    test_df["Close"].values,
+                    config.LOOK_BACK,
+                )
+            else:
+                y_pred = self.preprocessor.inverse_transform_prices(y_pred_sc)
 
             metrics = self.evaluator.add_result(mname, test_actual, y_pred, test_dates)
 

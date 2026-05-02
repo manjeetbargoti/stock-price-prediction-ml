@@ -6,7 +6,6 @@ model checkpointing, and training-history logging.
 """
 
 from __future__ import annotations
-from pathlib import Path
 
 import numpy as np
 
@@ -34,7 +33,7 @@ class LSTMModel(BaseModel):
         units_1:        int   = config.LSTM_UNITS_1,
         units_2:        int   = config.LSTM_UNITS_2,
         dense_units:    int   = config.DENSE_UNITS,
-        dropout:        float = config.DROPOUT_RATE,
+        dropout:        float = config.LSTM_DROPOUT,
         learning_rate:  float = config.LSTM_LR,
     ):
         super().__init__("LSTM", {
@@ -62,39 +61,56 @@ class LSTMModel(BaseModel):
             from tensorflow.keras.models import Sequential
             from tensorflow.keras.layers import LSTM, Dense, Dropout, BatchNormalization
             from tensorflow.keras.optimizers import Adam
+            from tensorflow.keras import regularizers
         except ImportError:
             raise ImportError("TensorFlow is required for LSTMModel. pip install tensorflow")
 
         tf.random.set_seed(42)
+
+        l2 = regularizers.l2(config.LSTM_L2) if config.LSTM_L2 > 0 else None
+        rec_drop = config.LSTM_RECURRENT_DROPOUT
+        dense_do = getattr(config, "DENSE_DROPOUT", self.dropout)
+
+        lstm_kw: dict = dict(
+            dropout=self.dropout,
+            recurrent_dropout=rec_drop,
+        )
+        if l2 is not None:
+            lstm_kw["kernel_regularizer"] = l2
 
         self.model = Sequential([
             LSTM(
                 self.units_1,
                 input_shape    = (self.look_back, n_features),
                 return_sequences = True,
-                dropout        = self.dropout,
-                recurrent_dropout = self.dropout,
                 name           = "lstm_1",
+                **lstm_kw,
             ),
             BatchNormalization(),
             LSTM(
                 self.units_2,
                 return_sequences = False,
-                dropout        = self.dropout,
-                recurrent_dropout = self.dropout,
                 name           = "lstm_2",
+                **lstm_kw,
             ),
             BatchNormalization(),
             Dense(self.dense_units, activation="relu", name="dense_1"),
-            Dropout(self.dropout),
+            Dropout(dense_do),
             Dense(1, activation="linear", name="output"),
         ], name="StockLSTM")
 
-        self.model.compile(
-            optimizer = Adam(learning_rate=self.learning_rate),
-            loss      = "mean_squared_error",
-            metrics   = ["mae"],
+        opt = Adam(
+            learning_rate = self.learning_rate,
+            clipnorm      = config.LSTM_CLIPNORM,
         )
+
+        loss_spec = getattr(config, "LSTM_LOSS", "mse")
+        if str(loss_spec).lower() == "huber":
+            loss = tf.keras.losses.Huber(delta=config.LSTM_HUBER_DELTA)
+        else:
+            loss = "mean_squared_error"
+
+        self.model.compile(optimizer=opt, loss=loss, metrics=["mae"])
         log.info("LSTM architecture:\n%s", self.model.summary())
 
     # ── Interface ─────────────────────────────────────────────────────────────
@@ -114,8 +130,9 @@ class LSTMModel(BaseModel):
         X_train / X_val must be 3-D: (samples, look_back, n_features).
         """
         from tensorflow.keras.callbacks import (
-            EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard
+            EarlyStopping, ModelCheckpoint, ReduceLROnPlateau,
         )
+        from inspect import signature
 
         if X_train.ndim != 3:
             raise ValueError(
@@ -126,18 +143,30 @@ class LSTMModel(BaseModel):
         self.n_features = X_train.shape[2]
         self._build(self.n_features)
 
+        monitor = "val_loss" if X_val is not None else "loss"
+        es_kw: dict = dict(
+            monitor              = monitor,
+            patience             = config.EARLY_STOP_PATIENCE,
+            restore_best_weights = True,
+            verbose              = 1,
+            min_delta            = getattr(config, "EARLY_STOP_MIN_DELTA", 0.0),
+        )
+        min_ep = getattr(config, "LSTM_MIN_EPOCHS_BEFORE_EARLY_STOP", 0)
+        if min_ep and int(min_ep) > 0:
+            if "start_from_epoch" in signature(EarlyStopping.__init__).parameters:
+                es_kw["start_from_epoch"] = int(min_ep)
+            else:
+                log.warning(
+                    "EarlyStopping has no start_from_epoch (upgrade TF≥2.11); "
+                    "min-epoch floor ignored."
+                )
         callbacks = [
-            EarlyStopping(
-                monitor           = "val_loss" if X_val is not None else "loss",
-                patience          = config.EARLY_STOP_PATIENCE,
-                restore_best_weights = True,
-                verbose           = 1,
-            ),
+            EarlyStopping(**es_kw),
             ReduceLROnPlateau(
-                monitor  = "val_loss" if X_val is not None else "loss",
-                factor   = 0.5,
-                patience = 7,
-                min_lr   = 1e-6,
+                monitor  = monitor,
+                factor   = config.LSTM_LR_PLATEAU_FACTOR,
+                patience = config.LSTM_LR_PLATEAU_PATIENCE,
+                min_lr   = config.LSTM_LR_MIN,
                 verbose  = 1,
             ),
         ]
@@ -145,10 +174,10 @@ class LSTMModel(BaseModel):
         if checkpoint_path:
             callbacks.append(
                 ModelCheckpoint(
-                    filepath   = checkpoint_path,
-                    monitor    = "val_loss" if X_val is not None else "loss",
+                    filepath       = checkpoint_path,
+                    monitor        = monitor,
                     save_best_only = True,
-                    verbose    = 1,
+                    verbose        = 1,
                 )
             )
 
@@ -167,12 +196,12 @@ class LSTMModel(BaseModel):
         self.history = self.model.fit(**fit_kwargs)
         self.trained = True
 
-        best_epoch = np.argmin(self.history.history.get("val_loss",
-                                                         self.history.history["loss"]))
+        hist = self.history.history
+        best_epoch = int(np.argmin(hist.get("val_loss", hist["loss"])))
         log.info(
             "LSTM trained. Best epoch=%d  Final val_loss=%.6f",
             best_epoch + 1,
-            self.history.history.get("val_loss", self.history.history["loss"])[-1],
+            hist.get("val_loss", hist["loss"])[-1],
         )
 
     def predict(self, X: np.ndarray) -> np.ndarray:

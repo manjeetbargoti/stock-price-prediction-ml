@@ -23,6 +23,7 @@ from src.feature_engineering import FeatureEngineer, create_sequences
 from src.sentiment           import SentimentAnalyzer
 from src.evaluation          import ModelEvaluator
 from src.pipeline            import StockPredictionPipeline, MODEL_REGISTRY
+from src.forecasting         import future_close_forecast, signal_for_forecast_window
 
 # ── Page Config ───────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -64,14 +65,61 @@ def _init_state():
         "raw_df":        None,
         "test_actual":   None,
         "test_dates":    None,
-        "predictions":   {},     # model_name → y_pred (unscaled)
-        "preprocessor":  None,
+        "predictions":          {},     # model_name → y_pred (unscaled)
+        "preprocessor":         None,
+        "trained_models":       {},     # model_name → fitted model instance
+        "forward_forecasts":    {},     # model_name → future_close_forecast dict
+        "clean_df":             None,
+        "sentiment_df_fc":      None,
+        "feature_cols_fc":      None,
+        "forecast_page_idx":    0,
     }
     for k, v in defaults.items():
         if k not in st.session_state:
             st.session_state[k] = v
 
 _init_state()
+
+
+def _forecast_n_pages(fc: dict, window: int) -> int:
+    n = len(fc["dates"])
+    if n == 0:
+        return 1
+    return max(1, (n + window - 1) // window)
+
+
+def _forecast_week_slice(fc: dict, page: int, window: int):
+    dates, prices = fc["dates"], fc["prices"]
+    n = len(dates)
+    start = page * window
+    if start >= n:
+        return [], [], start
+    end = min(start + window, n)
+    return dates[start:end], prices[start:end], start
+
+
+def _page_for_pick_date(fc: dict, pick: date, window: int) -> int:
+    ds = [pd.Timestamp(d).date() for d in fc["dates"]]
+    n = len(ds)
+    if n == 0:
+        return 0
+    n_pages = _forecast_n_pages(fc, window)
+    for p in range(n_pages):
+        s = p * window
+        e = min(s + window, n)
+        if s >= n:
+            break
+        if ds[s] <= pick <= ds[e - 1]:
+            return p
+    best_p, best_diff = 0, 10**9
+    for p in range(n_pages):
+        s = p * window
+        if s >= n:
+            break
+        diff = abs((ds[s] - pick).days)
+        if diff < best_diff:
+            best_diff, best_p = diff, p
+    return best_p
 
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -97,7 +145,7 @@ with st.sidebar:
     with col2:
         end_date = st.date_input(
             "End Date",
-            value=date(2025, 12, 31),
+            value=date.today(),
             min_value=date(2011, 1, 1),
             max_value=date.today(),
         )
@@ -140,6 +188,12 @@ if run_btn:
 
     with st.status("Running prediction pipeline…", expanded=True) as status:
         try:
+            st.session_state["predictions"] = {}
+            st.session_state["trained_models"] = {}
+            st.session_state["forward_forecasts"] = {}
+            st.session_state["forecast_page_idx"] = 0
+            st.session_state["lstm_ret_scaler"] = None
+
             st.write(f"📥 Fetching {ticker} data from Yahoo Finance…")
             fetcher = StockDataFetcher(ticker, str(start_date), str(end_date))
             raw_df  = fetcher.fetch()
@@ -175,12 +229,31 @@ if run_btn:
             X_te_2d  = test_sc[feature_cols].values
             y_te     = test_sc["Close"].values
 
-            X_tr_3d,  y_tr_3d  = create_sequences(X_tr_2d,  y_tr)
-            X_val_3d, y_val_3d = create_sequences(X_val_2d, y_val)
-            X_te_3d,  y_te_3d  = create_sequences(X_te_2d,  y_te)
+            lstm_ret_scaler = None
+            if "LSTM" in model_names and config.LSTM_TARGET_MODE == "return":
+                from sklearn.preprocessing import StandardScaler
+                from src.lstm_data import prepare_lstm_return_sequences
 
-            test_actual = preprocessor.inverse_transform_prices(y_te_3d)
+                lstm_ret_scaler = StandardScaler()
+                (X_tr_3d, y_tr_3d), (X_val_3d, y_val_3d), (X_te_3d, y_te_3d) = (
+                    prepare_lstm_return_sequences(
+                        train_df, val_df, test_df, lstm_ret_scaler, config.LOOK_BACK
+                    )
+                )
+            else:
+                X_tr_3d,  y_tr_3d  = create_sequences(X_tr_2d,  y_tr)
+                X_val_3d, y_val_3d = create_sequences(X_val_2d, y_val)
+                X_te_3d,  y_te_3d  = create_sequences(X_te_2d,  y_te)
+                if "LSTM" in model_names and config.LSTM_UNIVARIATE_INPUT:
+                    X_tr_3d,  y_tr_3d  = create_sequences(y_tr.reshape(-1, 1),  y_tr)
+                    X_val_3d, y_val_3d = create_sequences(y_val.reshape(-1, 1), y_val)
+                    X_te_3d,  y_te_3d  = create_sequences(y_te.reshape(-1, 1), y_te)
+
+            _, y_te_close = create_sequences(y_te.reshape(-1, 1), y_te)
+            test_actual = preprocessor.inverse_transform_prices(y_te_close)
             test_dates  = test_df.index[config.LOOK_BACK:]
+            st.session_state["lstm_ret_scaler"] = lstm_ret_scaler
+            st.session_state["lstm_ci_halfwidth_inr"] = None
             st.session_state["test_actual"] = test_actual
             st.session_state["test_dates"]  = test_dates
 
@@ -205,13 +278,76 @@ if run_btn:
                     kw["feature_names"] = feature_cols
                 model.train(X_tr_in, y_tr_in, **kw)
 
+                if is_lstm:
+                    from src.lstm_data import lstm_validation_ci_halfwidth_inr
+
+                    y_val_pred_sc = model.predict(X_val_in)
+                    st.session_state["lstm_ci_halfwidth_inr"] = (
+                        lstm_validation_ci_halfwidth_inr(
+                            y_val_pred_sc=y_val_pred_sc,
+                            val_df=val_df,
+                            preprocessor=preprocessor,
+                            lstm_ret_scaler=lstm_ret_scaler,
+                            return_mode=config.LSTM_TARGET_MODE == "return",
+                            look_back=config.LOOK_BACK,
+                        )
+                    )
+
                 y_pred_sc = model.predict(X_te_in)
-                y_pred    = preprocessor.inverse_transform_prices(y_pred_sc)
+                if (
+                    is_lstm
+                    and config.LSTM_TARGET_MODE == "return"
+                    and lstm_ret_scaler is not None
+                ):
+                    from src.lstm_data import decode_return_predictions_to_close
+
+                    y_pred = decode_return_predictions_to_close(
+                        y_pred_sc,
+                        lstm_ret_scaler,
+                        test_df["Close"].values,
+                        config.LOOK_BACK,
+                    )
+                else:
+                    y_pred = preprocessor.inverse_transform_prices(y_pred_sc)
 
                 evaluator.add_result(mname, test_actual, y_pred, test_dates)
                 st.session_state["predictions"][mname] = y_pred
+                st.session_state["trained_models"][mname] = model
 
                 st.write(f"   ✅ {mname} done.")
+
+            st.write(
+                "📆 Computing forward forecast: "
+                f"{config.FORECAST_MAX_HORIZON} trading days total "
+                f"({config.FORECAST_WINDOW_DAYS} days per page in the dashboard)…"
+            )
+            r2_map = evaluator.comparison_table().set_index("Model")["R2"].to_dict()
+            fc_out = {}
+            for mname_fc, model_fc in st.session_state["trained_models"].items():
+                fc_out[mname_fc] = future_close_forecast(
+                    clean_df=clean_df,
+                    engineer=engineer,
+                    preprocessor=preprocessor,
+                    sentiment_df=s_df,
+                    model=model_fc,
+                    is_lstm=(mname_fc == "LSTM"),
+                    lstm_target_return=(
+                        mname_fc == "LSTM" and config.LSTM_TARGET_MODE == "return"
+                    ),
+                    lstm_ret_scaler=st.session_state.get("lstm_ret_scaler"),
+                    lstm_univariate=(
+                        mname_fc == "LSTM"
+                        and config.LSTM_TARGET_MODE == "close"
+                        and config.LSTM_UNIVARIATE_INPUT
+                    ),
+                    feature_cols=feature_cols,
+                    n_steps=config.FORECAST_MAX_HORIZON,
+                    test_r2=float(r2_map.get(mname_fc, 0.0)),
+                )
+            st.session_state["forward_forecasts"] = fc_out
+            st.session_state["clean_df"] = clean_df
+            st.session_state["sentiment_df_fc"] = s_df
+            st.session_state["feature_cols_fc"] = feature_cols
 
             st.session_state["evaluator"]    = evaluator
             st.session_state["pipeline_run"] = True
@@ -378,6 +514,278 @@ with tabs[2]:
         )
         st.plotly_chart(fig, use_container_width=True)
 
+        if "LSTM" in predictions:
+            st.divider()
+            hw = float(st.session_state.get("lstm_ci_halfwidth_inr") or 0.0)
+            y_lstm = np.asarray(predictions["LSTM"], dtype=float)
+            act = np.asarray(test_actual, dtype=float)
+            td_ts = pd.to_datetime(test_dates)
+            d_min = td_ts.min().date()
+            d_max = td_ts.max().date()
+            c1, c2 = st.columns(2)
+            with c1:
+                dr0 = st.date_input(
+                    "LSTM results — start date",
+                    value=d_min,
+                    min_value=d_min,
+                    max_value=d_max,
+                    key="lstm_res_start",
+                )
+            with c2:
+                dr1 = st.date_input(
+                    "LSTM results — end date",
+                    value=d_max,
+                    min_value=d_min,
+                    max_value=d_max,
+                    key="lstm_res_end",
+                )
+            if dr0 > dr1:
+                dr0, dr1 = dr1, dr0
+            mask = (td_ts.date >= dr0) & (td_ts.date <= dr1)
+            x_sub = td_ts[mask]
+            act_sub = act[mask]
+            pred_sub = y_lstm[mask]
+            low_sub = pred_sub - hw
+            high_sub = pred_sub + hw
+            t0s = dr0.strftime("%B %Y")
+            t1s = dr1.strftime("%B %Y")
+            st.subheader(
+                f"LSTM Prediction Results for {ticker} Stock ({t0s} – {t1s})"
+            )
+            st.caption(
+                "Actual price in orange, LSTM-predicted price in blue, "
+                "with ~95% interval (validation-calibrated) shaded in light blue."
+            )
+            lfig = go.Figure()
+            lfig.add_trace(go.Scatter(
+                x=x_sub, y=high_sub, mode="lines", line=dict(width=0),
+                showlegend=False, hoverinfo="skip",
+            ))
+            lfig.add_trace(go.Scatter(
+                x=x_sub, y=low_sub, mode="lines", line=dict(width=0),
+                fillcolor="rgba(173, 216, 230, 0.45)",
+                fill="tonexty", name="~95% interval",
+                hoverinfo="skip",
+            ))
+            lfig.add_trace(go.Scatter(
+                x=x_sub, y=act_sub, name="Actual",
+                line=dict(color="#FF7F0E", width=2.4),
+            ))
+            lfig.add_trace(go.Scatter(
+                x=x_sub, y=pred_sub, name="LSTM predicted",
+                line=dict(color="#1F77B4", width=2),
+            ))
+            lfig.update_layout(
+                title=f"{ticker} — LSTM vs actual (selected range)",
+                xaxis_title="Date",
+                yaxis_title="Price (INR)",
+                template="plotly_white",
+                hovermode="x unified",
+            )
+            st.plotly_chart(lfig, use_container_width=True)
+            tbl = pd.DataFrame({
+                "Date": x_sub.strftime("%Y-%m-%d"),
+                "Actual (₹)": np.round(act_sub, 2),
+                "Predicted (₹)": np.round(pred_sub, 2),
+                "Lower ~95% (₹)": np.round(low_sub, 2),
+                "Upper ~95% (₹)": np.round(high_sub, 2),
+            })
+            st.dataframe(tbl, use_container_width=True, hide_index=True)
+
+        # ── Multi-day forward forecast (beyond downloaded history) ──────────
+        st.divider()
+        W = config.FORECAST_WINDOW_DAYS
+        st.subheader(
+            f"🔮 Forward forecast — {W} trading days per page "
+            f"(up to {config.FORECAST_MAX_HORIZON} days computed)"
+        )
+        fc_map = st.session_state.get("forward_forecasts") or {}
+        if not fc_map:
+            st.caption("Forward forecasts will appear here after a successful pipeline run.")
+        else:
+            fc_model = st.selectbox(
+                "Model for forward forecast",
+                list(fc_map.keys()),
+                key="forward_fc_model",
+            )
+            fc = fc_map[fc_model]
+
+            if st.session_state.get("_forecast_ui_model") != fc_model:
+                st.session_state["forecast_page_idx"] = 0
+                st.session_state["_forecast_ui_model"] = fc_model
+
+            n_pages = _forecast_n_pages(fc, W)
+            page = int(st.session_state.get("forecast_page_idx", 0))
+            page = max(0, min(page, n_pages - 1))
+            st.session_state["forecast_page_idx"] = page
+
+            w_dates, w_prices, w_start = _forecast_week_slice(fc, page, W)
+            n_tot = len(fc["dates"])
+
+            fd0 = pd.Timestamp(fc["dates"][0]).date()
+            fd1 = pd.Timestamp(fc["dates"][-1]).date()
+
+            nav_prev, nav_mid, nav_next = st.columns([1, 3, 1])
+            with nav_prev:
+                if st.button(
+                    "◀ Previous",
+                    key="fc_btn_prev",
+                    help=f"Previous {W} trading days",
+                    disabled=(page <= 0),
+                    use_container_width=True,
+                ):
+                    st.session_state["forecast_page_idx"] = page - 1
+                    st.rerun()
+            with nav_next:
+                if st.button(
+                    "Next ▶",
+                    key="fc_btn_next",
+                    help=f"Next {W} trading days",
+                    disabled=(page >= n_pages - 1),
+                    use_container_width=True,
+                ):
+                    st.session_state["forecast_page_idx"] = page + 1
+                    st.rerun()
+            with nav_mid:
+                st.markdown(
+                    f"**Page {page + 1} / {n_pages}** — "
+                    f"rows **{w_start + 1}–{w_start + len(w_dates)}** of **{n_tot}** "
+                    "forecast trading days"
+                )
+
+            cjump, cform = st.columns([1, 2])
+            with cjump:
+                jump_options = list(range(n_pages))
+
+                def _week_label(p: int) -> str:
+                    ds, pr, s = _forecast_week_slice(fc, p, W)
+                    if not ds:
+                        return f"Week {p + 1}"
+                    a = pd.Timestamp(ds[0]).strftime("%d %b %Y")
+                    b = pd.Timestamp(ds[-1]).strftime("%d %b %Y")
+                    return f"Week {p + 1}: {a} → {b}"
+
+                week_pick = st.selectbox(
+                    "Jump to week",
+                    options=jump_options,
+                    index=min(page, max(0, n_pages - 1)),
+                    format_func=_week_label,
+                )
+                if week_pick != page:
+                    st.session_state["forecast_page_idx"] = week_pick
+                    st.rerun()
+
+            with cform:
+                with st.form("fc_date_jump_form", clear_on_submit=False):
+                    jd = st.date_input(
+                        "Or pick any date in the forecast range",
+                        value=fd0,
+                        min_value=fd0,
+                        max_value=fd1,
+                        key="fc_jump_date_input",
+                    )
+                    submitted = st.form_submit_button("Go to date")
+                    if submitted:
+                        st.session_state["forecast_page_idx"] = _page_for_pick_date(
+                            fc, jd, W
+                        )
+                        st.rerun()
+
+            raw = st.session_state.get("raw_df")
+            tail_n = min(120, len(raw) if raw is not None else 0)
+
+            top_l, top_r = st.columns([1.15, 1.0])
+            with top_l:
+                ffig = go.Figure()
+                if raw is not None and tail_n > 0:
+                    tail = raw.iloc[-tail_n:]
+                    ffig.add_trace(go.Scatter(
+                        x=tail.index,
+                        y=tail["Close"],
+                        mode="lines",
+                        name="Actual Prices",
+                        line=dict(color="#1F77B4", width=2.2),
+                    ))
+                if w_dates:
+                    ffig.add_trace(go.Scatter(
+                        x=list(w_dates),
+                        y=list(w_prices),
+                        mode="lines+markers",
+                        name=f"Forecast (this page, {len(w_dates)} days)",
+                        line=dict(color="#FF7F0E", width=2, dash="dash"),
+                    ))
+                ffig.update_layout(
+                    title=f"{ticker} — Actual · forecast window (page {page + 1})",
+                    xaxis_title="Date",
+                    yaxis_title="Price (INR)",
+                    template="plotly_white",
+                    hovermode="x unified",
+                )
+                st.plotly_chart(ffig, use_container_width=True)
+
+            with top_r:
+                st.markdown("**Predicted stock prices (this page)**")
+                pred_rows = []
+                for d, p in zip(
+                    reversed(w_dates),
+                    reversed(w_prices),
+                ):
+                    pred_rows.append({
+                        "Date":             pd.Timestamp(d).strftime("%m/%d/%Y"),
+                        "Stock symbol":     ticker,
+                        "Predicted price": f"₹{p:,.2f}",
+                        "Confidence":      f"{fc['confidence_pct']}%",
+                    })
+                st.dataframe(
+                    pd.DataFrame(pred_rows),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+                st.caption(
+                    "Confidence is a simple mapping from test-set R² (research UI only, "
+                    "not a calibrated probability)."
+                )
+
+            bot_l, bot_r = st.columns([1.0, 1.0])
+            with bot_l:
+                st.markdown("**Next predicted prices (up to 3 rows)**")
+                st.dataframe(
+                    pd.DataFrame(pred_rows[: max(1, min(3, len(pred_rows)))]),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+            with bot_r:
+                if w_prices:
+                    np_price = float(w_prices[-1])
+                    sig = signal_for_forecast_window(fc=fc, page=page, window=W)
+                else:
+                    np_price = float(fc["last_actual_close"])
+                    sig = "Hold"
+                st.markdown(
+                    f'<div class="metric-card">'
+                    f'<div class="metric-label">Window end (last day on this page)</div>'
+                    f'<div class="metric-value">₹{np_price:,.2f}</div>'
+                    f'<div class="metric-label" style="margin-top:10px">'
+                    f'Prediction confidence</div>'
+                    f'<div class="metric-value">{fc["confidence_pct"]}%</div>'
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+                if sig == "Buy":
+                    bg, fg = "#28a745", "#fff"
+                elif sig == "Sell":
+                    bg, fg = "#dc3545", "#fff"
+                else:
+                    bg, fg = "#6c757d", "#fff"
+                st.markdown(
+                    f'<p style="text-align:center;margin-top:16px">'
+                    f'<span style="display:inline-block;padding:14px 48px;'
+                    f"background:{bg};color:{fg};border-radius:10px;"
+                    f'font-size:1.15rem;font-weight:600">{sig}</span></p>',
+                    unsafe_allow_html=True,
+                )
+                st.caption(fc["model_horizon_note"])
+
         # Per-model scatter
         st.subheader("Scatter: Actual vs Predicted (per model)")
         model_sel = st.selectbox("Choose model", list(predictions.keys()), key="scatter_sel")
@@ -436,6 +844,52 @@ with tabs[3]:
             st.plotly_chart(evaluator.plot_comparison_bar("MAE"), use_container_width=True)
         with c4:
             st.plotly_chart(evaluator.plot_comparison_bar("MAPE"), use_container_width=True)
+
+        lstm_m = (st.session_state.get("trained_models") or {}).get("LSTM")
+        if lstm_m is not None and hasattr(lstm_m, "get_training_history"):
+            hist = lstm_m.get_training_history()
+            loss = hist.get("loss") if hist else None
+            if loss:
+                st.divider()
+                st.subheader("LSTM — training & validation loss")
+                n_ep = len(loss)
+                val_loss = hist.get("val_loss")
+                x_ep = list(range(1, n_ep + 1))
+                lfig = go.Figure()
+                lfig.add_trace(go.Scatter(
+                    x=x_ep,
+                    y=loss,
+                    mode="lines",
+                    name="Training loss",
+                    line=dict(color="#1F77B4", width=2),
+                ))
+                if val_loss is not None and len(val_loss) == n_ep:
+                    lfig.add_trace(go.Scatter(
+                        x=x_ep,
+                        y=val_loss,
+                        mode="lines",
+                        name="Validation loss",
+                        line=dict(color="#FF7F0E", width=2),
+                    ))
+                min_es = getattr(config, "LSTM_MIN_EPOCHS_BEFORE_EARLY_STOP", 0) or 0
+                title_extra = (
+                    f" ({n_ep} epoch{'s' if n_ep != 1 else ''} run)"
+                )
+                lfig.update_layout(
+                    title=f"{ticker} — LSTM loss vs epoch{title_extra}",
+                    xaxis_title="Epoch",
+                    yaxis_title="Loss",
+                    template="plotly_white",
+                    hovermode="x unified",
+                    legend=dict(orientation="h", y=-0.2),
+                )
+                st.plotly_chart(lfig, use_container_width=True)
+                st.caption(
+                    "Training stops when early stopping triggers or when "
+                    f"`LSTM_EPOCHS` is reached. If `LSTM_MIN_EPOCHS_BEFORE_EARLY_STOP` "
+                    f"is set ({int(min_es)} here), patience-based stopping only applies "
+                    "after that many epochs."
+                )
 
 
 # ── Tab 5: Trading Signals ────────────────────────────────────────────────────
