@@ -27,6 +27,7 @@ stock_predictor/
 │   ├── feature_engineering.py   # 40+ technical indicators, lag & rolling features
 │   ├── sentiment.py             # VADER news sentiment scorer
 │   ├── evaluation.py            # Metrics, Plotly charts, trading backtest
+│   ├── lstm_data.py             # Return-sequence prep, Close reconstruction, validation CI width
 │   ├── pipeline.py              # End-to-end orchestrator (CLI + Python API)
 │   ├── database.py              # SQLite persistence (prices & predictions)
 │   ├── logger.py                # Structured logging (file + console)
@@ -105,10 +106,12 @@ streamlit run dashboard/app.py
 Open [http://localhost:8501](http://localhost:8501) in your browser.
 
 **Dashboard features:**
-- Select any NIFTY 50 ticker and custom date range
+- Select any NIFTY 50 ticker and custom date range (end date defaults to today)
 - Choose one or more models to train simultaneously
 - Toggle VADER sentiment analysis
 - View tabs: Data Overview · Technical Indicators · Model Predictions · Performance Metrics · Trading Signals
+- **Model Predictions:** overlay of all models vs test-set actuals; **multi-day forward forecast** with pagination (week-sized windows, jump by date); when **LSTM** is trained, a **dedicated LSTM block** with date-range filters, **actual (orange) vs predicted (blue)** and a **~95% band** (validation-calibrated symmetric interval), plus a price table (actual, predicted, lower/upper band)
+- **Performance Metrics:** after training **LSTM**, **training vs validation loss** curves vs epoch (length = epochs actually run; early stopping and `LSTM_MIN_EPOCHS_BEFORE_EARLY_STOP` are described in the UI caption)
 
 ### Option B — Command-Line Pipeline
 
@@ -165,18 +168,25 @@ All models share a common `BaseModel` interface: `train()`, `predict()`, `evalua
 
 ### LSTM Architecture
 
+Architecture depths (units per layer, dropout, etc.) match **`config.py`** (e.g. wider first LSTM, BatchNorm, stacked LSTM, dense head). Schema:
+
 ```
 Input  → (batch, look_back=60, n_features)
-LSTM-1 → 128 units, return_sequences=True, dropout=0.2
+Stacked LSTM layers (with dropout / recurrent dropout per config)
 BatchNorm
-LSTM-2 → 64 units, return_sequences=False, dropout=0.2
-BatchNorm
-Dense  → 32 units, ReLU
-Dropout → 0.2
-Output → 1 unit, linear
+Dense  → ReLU, dropout
+Output → 1 unit, linear (scaled return or scaled Close, per LSTM_TARGET_MODE)
 ```
 
-Compiled with Adam (lr=0.001), MSE loss. Callbacks: EarlyStopping (patience=15), ReduceLROnPlateau, ModelCheckpoint.
+Training uses Adam with learning rate from `config.py`, loss from `LSTM_LOSS` (typically MSE), gradient clipping, and optional L2. Callbacks include **EarlyStopping** (monitoring `val_loss` when validation data is supplied), **ReduceLROnPlateau**, and optional **ModelCheckpoint**. The fitted Keras `History` is stored on the model instance; **`get_training_history()`** exposes `loss` / `val_loss` per epoch for the dashboard charts.
+
+**Target modes (`LSTM_TARGET_MODE`):**
+- **`return`** *(default)* — the network predicts the next **z-scored simple daily return**; one-step **Close** in INR is reconstructed from the previous close and the inverse-scaled return (`src/lstm_data.py`). This path generally behaves better than regressing MinMax-scaled price directly.
+- **`close`** — predicts **MinMax-scaled Close**; use with **`LSTM_UNIVARIATE_INPUT = True`** for a univariate past-close window.
+
+**Uncertainty band (~95%):** After each LSTM fit, the dashboard uses **validation** one-step predictions vs actual closes to set a symmetric INR half-width: the maximum of **z × σ** (`LSTM_CI_Z`, default 1.96) and the **97.5th percentile of |residual|** on validation. That band is shown on the **test** window for exploration only; it is not a guaranteed coverage guarantee on out-of-sample days.
+
+**Forward forecast confidence (UI):** Beyond the last historical bar, the dashboard maps test **R²** to a display “confidence” percentage. For **return-target LSTM**, that value is raised when **R²** is strong (e.g. floor at 90% or 95% for higher scores)—still a **heuristic** for the UI, not a calibrated probability.
 
 ---
 
@@ -314,21 +324,26 @@ All tunable parameters are centralised. Key settings:
 ```python
 # Data
 DEFAULT_START_DATE = "2021-01-01"
-DEFAULT_END_DATE   = "2026-04-25"
+DEFAULT_END_DATE   = date.today().strftime("%Y-%m-%d")  # rolling “through today”
 MIN_REQUIRED_ROWS  = 300
+
+# Forward forecast (dashboard)
+FORECAST_WINDOW_DAYS  = 7    # trading days per UI page
+FORECAST_MAX_HORIZON  = 56   # total horizon computed, then paginated
 
 # Splits
 TRAIN_RATIO = 0.70   # 70% training
 VAL_RATIO   = 0.15   # 15% validation
              # 0.15  # 15% test (implicit)
 
-# LSTM
-LOOK_BACK           = 60     # timesteps per input sequence
-LSTM_EPOCHS         = 100
-EARLY_STOP_PATIENCE = 15
-LSTM_UNITS_1        = 128
-LSTM_UNITS_2        = 64
-DROPOUT_RATE        = 0.2
+# LSTM (see config.py for full list: units, dropout, LR, clipnorm, etc.)
+LOOK_BACK                         = 60
+LSTM_EPOCHS                       = 200
+LSTM_MIN_EPOCHS_BEFORE_EARLY_STOP = 82   # EarlyStopping only “arms” after this epoch (Keras start_from_epoch)
+EARLY_STOP_PATIENCE               = 28
+LSTM_TARGET_MODE                  = "return"   # or "close"
+LSTM_UNIVARIATE_INPUT             = True       # for "close" mode: past scaled Close only
+LSTM_CI_Z                         = 1.96       # nominal ~95% scale for CI half-width
 
 # XGBoost
 XGB_N_ESTIMATORS   = 1000
@@ -359,6 +374,8 @@ pytest tests/ -v --cov=src --cov-report=term-missing
 | `TestSVRModel` | Train/predict on small data |
 | `TestSentimentAnalyzer` | Score range, DataFrame output, zero-score placeholder |
 | `TestModelEvaluator` | RMSE-sorted table, best model, backtest keys, perfect-score metrics |
+| `TestLstmReturnData` | Daily return helpers used by return-target LSTM |
+| `TestFutureForecast` | Multi-step forward forecast helper behaviour |
 | `TestIntegration` | Full preprocess→features chain, sentiment merge, sklearn pipeline, SQLite round-trip |
 
 ---
